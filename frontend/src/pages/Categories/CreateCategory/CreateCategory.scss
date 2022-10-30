@@ -1,0 +1,16 @@
+.CreateCategory {
+    margin: 10px 0px 0px 10px;
+    .CreateCategory--CategoryListBtn {
+        // margin: 10px 0px 0px 10px;
+
+        .leftArrow {
+            margin-top: 10px;
+        }
+    }
+    .CreateCategory--inputField {
+        width: 50%;
+        padding: 10px;
+        border-radius: 10px;
+        outline: none;
+    }
+}

@@ -1,0 +1,13 @@
+.home {
+    .home--sidebarDashboardDiv {
+      width: 100%;
+      display: flex;
+      .home--sidebarDashboardDiv--sidebar {
+        width: 33%;
+      }
+
+      .home--sidebarDashboardDiv--dashboard {
+        width: 67%;
+      }
+    }
+}

@@ -1,0 +1,8 @@
+@import "../../globalStyles/globalMixins.scss";
+
+.Dashboard {
+    @include mainPages;
+    // padding-bottom: 200px;
+    margin: 13px 13px 0px 13px;
+
+}

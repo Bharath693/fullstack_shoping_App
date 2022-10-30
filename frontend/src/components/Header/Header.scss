@@ -1,0 +1,27 @@
+@import "../../styles/_colors.scss";
+@import "../../styles/_media.scss";
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    .navbar--header {
+        .navbar--header--menu {
+            width: 35px;
+            cursor: pointer;
+        }
+    }
+
+}
+
+@include breakpoint(desktop) {
+    .navbar--header--menu {
+        display: none;
+    }
+}
+
+@include breakpoint(largeScreens) {
+    .navbar--header--menu {
+        display: none;
+    }
+}

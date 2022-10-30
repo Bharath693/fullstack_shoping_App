@@ -1,0 +1,98 @@
+@import "../../styles/_colors.scss";
+@import "../../styles/_media.scss";
+
+
+.sidebarContainer {
+    position: relative;
+    width: 20%;
+    padding-bottom: 200px;
+    background-color: $charcol-grey;
+    padding-bottom: 100px;
+    .sidebar {
+        background-color: $charcol-grey;
+        margin-top: 20px;
+
+        .sidebar--Active{
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 10px 26px;
+            background-color: $black;
+
+            .sidebar--Active--Link {
+                text-decoration: none;
+            }
+        }
+
+       .sidebar--list {
+        cursor: pointer;
+        margin-top: 20px;
+        padding: 10px 26px;
+
+        .sidebarContainer--sidebar--list--linkTag {
+            list-style: none;
+            text-decoration: none;
+        }
+       }
+
+     .sidebar--list:hover {
+        background-color: $black;
+        padding: 10px 26px;
+     }
+    }
+    
+    .toggleSidebar {
+        position: absolute;
+    }
+    
+    .toggleSidebarSmall {
+        width: 16rem;
+        height: 100vh;
+        background-color: $charcol-grey;
+    }
+}
+
+
+@include breakpoint(mobile) {
+    .toggleSidebar{
+       width: 16rem;
+       height: 100vh;
+       background-color: $charcol-grey;
+       transition: all;
+    }
+    .sidebarContainer {
+        width: 0%;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
+@include breakpoint(landscape) {
+    .toggleSidebar{
+        width: 16rem;
+       height: 100vh;
+       background-color: $charcol-grey;
+       transition: all;
+      
+    }
+    .sidebarContainer {
+        width: 0%;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
+@include breakpoint(desktop) {
+    // .toggleSidebar{
+    //     display: none;
+    // }
+}
+
+@include breakpoint(largeScreens) {
+    // .toggleSidebar{
+    //     display: none;
+    // }
+}
+
+
