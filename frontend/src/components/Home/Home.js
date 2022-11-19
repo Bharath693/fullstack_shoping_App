@@ -6,7 +6,9 @@ import Dashboard from '../../pages/Dashboard/Dashboard';
 import Products from '../../pages/Products/Products';
 import Private from '../../routes/Private';
 import CategoryMain from '../../pages/Categories/CategoryMain';
+import AddCategory from '../../pages/Categories/Add_caterories/AddCategory';
 import "../Home/Home.scss";
+
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -22,6 +24,7 @@ const Home = () => {
               <Route path='/dashboard' element = {<Private><Dashboard /></Private>}/>
               <Route path='/products' element ={<Private><Products /></Private>}/>
               <Route path='/categories' element={<Private><CategoryMain /></Private>} />
+              <Route path='/categories/addcategory' element={<Private><AddCategory /></Private>} />
             </Routes>
         </div>
       </div>

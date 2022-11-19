@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReusableButton from '../../../reuse/Button';
+import { postApiCalling } from '../../../service/AuthService';
+import { useNavigate } from 'react-router-dom'
 import "./CreateCategory.scss";
 
 const CreateCategory = (props) => {
+  const navigate = useNavigate();
+  const [createCategory, setCreateCategory] = useState({
+    name:'',
+  });
 
   const handleCategory = () => {
     if (props.setDisplayCategory !== undefined) {
       props.setDisplayCategory("addCategory")
     }
+  }
+
+  const handleCreateCategory = (e) =>{
+     setCreateCategory({
+      ...createCategory,
+      name:e.target.value,
+     })
+  }
+
+  const handleSubmitCategory = (e) =>{
+      e.preventDefault();
+      const AddCreateCategory = postApiCalling("/api/createCategory",createCategory);
+      AddCreateCategory.then((response) =>{
+        if(response) {
+          props.setDisplayCategory("addCategory")
+        }
+      })
   }
 
   return (
@@ -21,12 +44,19 @@ const CreateCategory = (props) => {
         </div>
         <hr />
         <div>
-          <form>
+          <form onSubmit={(e) =>handleSubmitCategory(e)}>
             <h3 className='text-white'>Create Category</h3>
-            <input type="text"  placeholder='Category Name...' className='CreateCategory--inputField'/>
+            <input 
+            type="text"  
+            placeholder='Category Name...' 
+            className='CreateCategory--inputField'
+            value={createCategory.name}
+            onChange={handleCreateCategory}
+            />
             <div className='mt-3 CreateCategory--addCategoryBtn'>
             <ReusableButton 
             label="Create Category"
+            type="submit"
             />
             </div>
           </form>

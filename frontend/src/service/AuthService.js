@@ -1,4 +1,3 @@
-import React from 'react'
 // import { config_data } from "../config/config"
 import axios from "axios";
 

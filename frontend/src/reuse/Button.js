@@ -5,8 +5,8 @@ import "./Buttons.scss"
 const ReusableButton = (props) => {
 
   const handleButton = () =>{
-    if(props.handleLogout !== undefined){
-        props.handleLogout();
+    if(props.handleClick !== undefined){
+        props.handleClick();
     }
   }
   return (

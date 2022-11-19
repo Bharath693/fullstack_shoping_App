@@ -26,7 +26,7 @@ const Header = (props) => {
           <img src={menu_icon} alt="Menu" className='ms-2 navbar--header--menu'/>
         </div>
         <div className='flex mr-2 justify-end'>
-           <Button label = "Logout" className="" type="submit" handleLogout={handleLogout}/>
+           <Button label = "Logout" className="" type="submit" handleClick={handleLogout}/>
         </div>
       </div>
     </div>
