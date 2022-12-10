@@ -1,6 +1,6 @@
 export const sidebarData = [
     {
-        icon: <i class="bi bi-house-door"></i>,
+        icon: <i className="bi bi-house-door"></i>,
         Name: "Dashboard",
         route:"dashboard"
     },
@@ -18,7 +18,7 @@ export const sidebarData = [
         Name: "Customers"
     },
     {
-        icon:<i class="bi bi-bar-chart-fill"></i>,
+        icon:<i className="bi bi-bar-chart-fill"></i>,
         Name: "Categories",
         route:"categories"
     }

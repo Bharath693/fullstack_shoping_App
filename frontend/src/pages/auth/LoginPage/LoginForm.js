@@ -26,12 +26,13 @@ const LoginForm = () => {
           e.preventDefault();
           const loginUserData = await postApiCalling("/login",userDetails);
           if(loginUserData){
+            document.cookie = loginUserData?.data?.token
             localStorage.setItem("token-data",loginUserData?.data?.token)
             dispatcher(getRegisteredUserToken(loginUserData));
             navigate("/home/dashboard");
           }
     }
-    
+   
     return (
         <div className='"bg-green-500 w-full h-screen flex flex-col justify-center items-center LoginForm'>
             <form onSubmit={handleSubmit}>
