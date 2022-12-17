@@ -17,3 +17,16 @@ module.exports.createCategory = async (req,res) =>{
        res.status(400).json({errors:errors.array()})
     }
 }
+
+module.exports.getCategory = async (req, res) =>{
+    const page = req.params.page;
+    const postPerPage = 3;
+    const skip = (page - 1) * postPerPage;
+    try {
+      const count = await categoryModel.find().countDocuments();
+      const response = await categoryModel.find().skip(skip).limit(postPerPage).sort({updatedAt:-1});
+      res.status(200).json({catrgories:response,postPerPage,count});
+    } catch (error) {
+      res.status(400).json({msg:error.message})
+    }
+}

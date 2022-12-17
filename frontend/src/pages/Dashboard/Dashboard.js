@@ -3,7 +3,7 @@ import "./Dashboard.scss";
 
 const Dashboard = () => {
   const [displayCategory, setDisplayCategory] = useState("addCategory");
-  console.log(displayCategory)
+ 
   return (
     <div className='Dashboard'>
         Dashboard
