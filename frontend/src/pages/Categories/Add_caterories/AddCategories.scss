@@ -1,4 +1,7 @@
+@import "../../../globalStyles/globalMixins.scss";
+
 .AddCategory {
+     @include mainPages;
     .AddCategory--AddCategoryBtn {
         margin: 10px 0px 0px 10px;
     }

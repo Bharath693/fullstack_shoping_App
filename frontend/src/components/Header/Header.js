@@ -15,6 +15,7 @@ const Header = (props) => {
    
    const handleLogout = () =>{
     localStorage.removeItem("token-data");
+    document.cookie = JSON.stringify("token=null")
     dispatch(logOutUser())
     navigate("/")
    }

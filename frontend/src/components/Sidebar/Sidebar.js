@@ -4,10 +4,12 @@ import { sidebarData } from "../../data/data";
 import "../Sidebar/Sidebar.scss"
 
 const Sidebar = (props) => {
-  const [sidebarActive, setSidebarActive] = useState("Dashboard");
+  const sidebarlinkActive = localStorage.getItem("sidebarActive");
+  const [sidebarActive, setSidebarActive] = useState(sidebarlinkActive ? sidebarlinkActive : "Dashboard");
 
   const changeSidebarLink = (sidebarLink) => {
-    setSidebarActive(sidebarLink)
+      localStorage.setItem("sidebarActive",sidebarLink);
+      setSidebarActive(sidebarLink);
   }
 
   return (
@@ -19,11 +21,12 @@ const Sidebar = (props) => {
               <ul
                 className={`${sidebarActive === item.Name ? "sidebar--Active" : "sidebar--list"}`}
                 key={index}
+                onClick={() => changeSidebarLink(item.Name)}
               >
                 <Link
                   to={`${item.route}`}
                   className={`${sidebarActive === item.Name ? "flex items-center sidebar--Active--Link" : "flex items-center sidebarContainer--sidebar--list--linkTag"}`} 
-                  onClick={() => changeSidebarLink(item.Name)}>
+                  >
                   <li
                     className='mr-2 text-white inline-block'>{item.icon}
                   </li>

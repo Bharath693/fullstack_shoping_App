@@ -26,8 +26,8 @@ const LoginForm = () => {
           e.preventDefault();
           const loginUserData = await postApiCalling("/login",userDetails);
           if(loginUserData){
-            document.cookie = loginUserData?.data?.token
-            localStorage.setItem("token-data",loginUserData?.data?.token)
+             document.cookie =  JSON.stringify(`token=${loginUserData?.data?.token}`)
+            // localStorage.setItem("token-data",loginUserData?.data?.token)
             dispatcher(getRegisteredUserToken(loginUserData));
             navigate("/home/dashboard");
           }
