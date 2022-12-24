@@ -3,8 +3,8 @@ import Inputfield from '../../../reuse/inputfield';
 import Button from '../../../reuse/Button';
 import { postApiCalling } from "../../../service/AuthService";
 import { getRegisteredUserToken } from "../../../ReduxStore/dispatchers/getRegisteredUserToken";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.scss"
 
 const Register = () => {
