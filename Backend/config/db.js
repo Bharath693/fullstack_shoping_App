@@ -9,7 +9,7 @@ const connect = async () =>{
       console.log(error.message);
       process.exit;
     }
-    mongooose.connect(env.URL)
+    // mongooose.connect(env.URL)
 }
 
 module.exports = connect;

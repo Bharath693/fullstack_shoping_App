@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getApiCalling } from "../../../service/AuthService"
+import { getCategoryData } from "../store/dispatchers";
+import { connect } from 'react-redux'
 import "./AddCategories.scss"
 
-const AddCategory = (props) => {
+
+const AddCategory = ({
+    getCategoryDetails
+}) => {
     const navigate = useNavigate();
     const { page } = useParams();
-    const [pageNum, setPageNum] = useState(page ? Number(page) : 1)
+    const [pageNum, setPageNum] = useState(page ? Number(page) : 1);
+    const [categoryDetails, setCategoryDetails] = useState(null);
+
+    getCategoryData(pageNum)
 
     const handleCategory = () => {
         navigate("/home/categories/list")
     }
 
-   getApiCalling(`/api/categories/${pageNum}`)
-   .then((data) =>{
-    console.log(data)
-   })
    
     return (
         <div className='AddCategory'>
@@ -35,4 +38,11 @@ const AddCategory = (props) => {
     )
 }
 
-export default AddCategory
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        getCategoryDetails:(pageNum) =>dispatch(getCategoryData(pageNum))
+    }
+    
+}
+
+export default connect(null,mapDispatchToProps)(AddCategory)
