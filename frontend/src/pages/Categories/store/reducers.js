@@ -7,6 +7,7 @@ const defaultState = {
     categoryDetailsSuccess:false,
     categoryDetailsFail:false
   } 
+
 const categoryreducers = (state = defaultState,actions) => {
   
   switch (actions.type) {
@@ -19,9 +20,10 @@ const categoryreducers = (state = defaultState,actions) => {
         }
     case Actions.GET_CATEGORY_SUCCESS:
         return {
-            categoryDetails:actions.data,
+            ...state,
             categoryDetailsInProgress:false,
             categoryDetailsSuccess:true,
+            categoryDetails:actions?.details?.data,
             categoryDetailsFail:false
         }
     case Actions.GET_CATEGORY_Fail:

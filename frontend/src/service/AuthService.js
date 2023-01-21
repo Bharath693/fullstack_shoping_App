@@ -1,4 +1,6 @@
 import axios from "axios";
+import { connect } from "react-redux";
+import Cookies from "universal-cookie";
 
 
 export const postApiCalling = (url,data) => {
@@ -14,11 +16,11 @@ export const postApiCalling = (url,data) => {
 }
 
 export const getApiCalling = async (url) =>{
-   const url_post = process.env.REACT_APP_BASE_URL+url;
-   const headers = AuthHeaders()
+   const url_post = process.env.REACT_APP_BASE_URL+"/api"+url;
+   const headers = AuthHeaders();
    try {
       return await new Promise(async (resolve, reject) => {
-         await axios.get(url_post,{headers}).then((res) => {
+         await axios.get(url_post, {headers}).then((res) => {
             resolve(res);
          });
       });
@@ -38,14 +40,11 @@ const AuthHeaders = () =>{
 }
 
 function getSessionToken(){
-   // let token = localStorage.getItem('token-data'); 
-   let getToken = JSON.parse(document.cookie);
-   let token = getToken?.split("=")[1];
+   // let getToken = localStorage.getItem('token'); 
+   let cookies = new Cookies();
+   let token = cookies.get("token")
+   // let getToken = document.cookie
+   // console.log(getToken.split("="))
+   // let token = getToken?.split("=")[3]
    return token !== null ? token : null
 }
-
-
-
-
-
-

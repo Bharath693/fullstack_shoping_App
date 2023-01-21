@@ -13,7 +13,7 @@ module.exports.createCategory = async (req,res) =>{
             res.status(400).json({errors:[{msg:`${name} category allready exists`}]})
          }
     }else{
-      console.log(errors.array())
+      // console.log(errors.array())
        res.status(400).json({errors:errors.array()})
     }
 }

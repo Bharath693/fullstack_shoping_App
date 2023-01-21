@@ -1,10 +1,15 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom'
 import { useSelector } from "react-redux";
+import  { connect} from "react-redux"
 
-const Private = ({ children }) => {
-    const token = useSelector((store) => store.userToken.registeredUserTokenData);
-   return token ? children : <Navigate to="/" />
+const Private = ({ children, token }) => {
+    let tokenData = localStorage.getItem("token-data");
+   return token || tokenData  ? children : <Navigate to="/" />
 }
-
-export default Private
+const mapStateToProps = ({ login }) =>{
+    return {
+        token: login.loginDetails
+    }
+}
+export default connect(mapStateToProps,null)(Private)
