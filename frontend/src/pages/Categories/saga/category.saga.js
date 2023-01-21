@@ -1,23 +1,20 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { postApiCalling } from "../../../service/AuthService";
+import { postApiCalling, getApiCalling } from "../../../service/AuthService";
 import Actions from "../store/actions"
 
 function getCategoryApiCall(page){
-  postApiCalling(`/categories/${page}`);
+  return getApiCalling(`/categories/${page}`);
 }
 
 function* watchGetCategoryDetails(page){
-    console.log(page)
-    try {
-       const details =  yield call(getCategoryApiCall,page);
-       if(details) {
-         yield put({
-            type:Actions.categoryDetailsSuccess, details
-         })
-       }
-    } catch (error) {
-        yield put({type:Actions.categoryDetailsFail, error})
-    }
+  let details = yield call(getCategoryApiCall,page.page);
+  try {
+     if(details) {
+      yield put({type:Actions.GET_CATEGORY_SUCCESS, details})
+     }
+  } catch (error) {
+     yield put({type:Actions.GET_CATEGORY_FAIL, error})
+  }
 }
 
 const categorySaga = [

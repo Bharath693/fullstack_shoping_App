@@ -23,6 +23,7 @@
     "redux-saga": "^1.2.2",
     "redux-thunk": "^2.4.1",
     "sass": "^1.55.0",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

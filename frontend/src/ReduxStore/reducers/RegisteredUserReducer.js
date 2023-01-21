@@ -24,7 +24,6 @@ const initialState = {
     registeredDataFail: false
 }
 
-// console.log(checkToken);
 const RegisteredUserToken = (state = initialState, action) => {
     switch (action.type) {
         case Actions.POST_REGISTERED_USER_DATA:

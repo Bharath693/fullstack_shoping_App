@@ -26,7 +26,7 @@ module.exports.register = async (req, res) => {
                 return res.status(401).json({errors:"email already exist"})
             }
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message)
            return res.status(500).json("internal server error")
         }
     } else {
