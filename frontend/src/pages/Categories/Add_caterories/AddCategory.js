@@ -1,28 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCategoryData } from "../store/dispatchers";
 import * as dispatcher from "../store/dispatchers"
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import Spinner from '../../../reuse/Spinner';
+import AddCategoryTableList from './Add_categoryTableList/AddCategoryTableList';
 import "./AddCategories.scss"
 
 
 const AddCategory = ({
     getCategoryDetails,
-    getCategoryData,
-    categoryDetailsSuccess
+    getCategoryDataApi,
+    categoryDetailsSuccess,
+    categoryDetailsInProgress
 }) => {
     const navigate = useNavigate();
     const { page } = useParams();
     const [pageNum, setPageNum] = useState(page ? Number(page) : 1);
     const [categoryDetails, setCategoryDetails] = useState(null);
 
-   // To get the all the category list api
-   useEffect(() =>{
-    getCategoryData(pageNum);
-   },[getCategoryData])
-   
+    // To set the spinner value
+    const [spinner, setSpinner] = useState(false);
 
-  console.log(getCategoryDetails);
+   // To get all the category list api
+   useEffect(() =>{
+    getCategoryDataApi(pageNum);
+   },[getCategoryDataApi])
+   
+    //Setting up the spinner value
+    useEffect(() =>{
+     if(categoryDetailsInProgress){
+        setSpinner(true)
+     }
+     if(categoryDetailsSuccess){
+        setSpinner(false);
+        setCategoryDetails(getCategoryDetails)
+     }
+    })
+
+//   console.log(categoryDetails);
 
     const handleCategory = () => {
         navigate("/home/categories/list")
@@ -41,18 +56,17 @@ const AddCategory = ({
                 </button>
             </div>
             <hr />
-            <div>
-                leoraepsumleoraepsumleoraepsumleoraepsumleoraepsumleoraepsum
-            </div>
+            <Spinner spinner={spinner}/>
+            <AddCategoryTableList categoryDetails={categoryDetails}/>
         </div>
     )
 }
 
 const mapStateToProps = ({ category }) =>{
-    console.log(category)
     return {
         getCategoryDetails: category.categoryDetails,
-        // categoryDetailsSuccess: category.categoryDetailsSuccess
+        categoryDetailsSuccess: category.categoryDetailsSuccess,
+        categoryDetailsInProgress: category.categoryDetailsInProgress
     }
 }
 export default connect(mapStateToProps,dispatcher)(AddCategory)
