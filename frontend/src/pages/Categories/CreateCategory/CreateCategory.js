@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import ReusableButton from '../../../reuse/Button';
 import { postApiCalling } from '../../../service/AuthService';
-import { useNavigate } from 'react-router-dom'
+import * as dispatcher from '../store/dispatchers'
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import "./CreateCategory.scss";
 
-const CreateCategory = (props) => {
+const CreateCategory = ({
+  postCategoryDataApi
+}) => {
   const navigate = useNavigate();
   const [createCategory, setCreateCategory] = useState({
     name: '',
@@ -26,12 +30,8 @@ const CreateCategory = (props) => {
 
   const handleSubmitCategory = async (e) => {
     e.preventDefault();
-    const AddCreateCategory = await postApiCalling("/api/createCategory", createCategory);
-    AddCreateCategory.then((response) => {
-      if (response) {
-        props.setDisplayCategory("addCategory")
-      }
-    })
+    // The redux-saga implementation is done for this api need to proceed further
+    postCategoryDataApi(createCategory)
   }
 
   return (
@@ -68,4 +68,4 @@ const CreateCategory = (props) => {
   )
 }
 
-export default CreateCategory
+export default connect(null,dispatcher)(CreateCategory)
