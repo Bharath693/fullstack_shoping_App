@@ -2,9 +2,8 @@ import React from 'react';
 import Pagination from '../../../../reuse/Pagination';
 
 const AddCategoryTableList = (props) => {
-  
   return (
-    <div className='m-3'>
+    <div>
       <table className="w-full bg-gray-900 rounded-md">
         <thead>
           <tr className='border-b border-gray-800 text-left'>

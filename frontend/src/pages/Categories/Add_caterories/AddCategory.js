@@ -11,9 +11,7 @@ const AddCategory = ({
     getCategoryDetails,
     getCategoryDataApi,
     categoryDetailsSuccess,
-    categoryDetailsInProgress,
-    categoryPagination,
-    setCategoryPagination,
+    categoryDetailsInProgress
 }) => {
     const navigate = useNavigate();
     const { page } = useParams();
