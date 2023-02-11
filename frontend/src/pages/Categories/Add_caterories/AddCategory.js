@@ -11,7 +11,9 @@ const AddCategory = ({
     getCategoryDetails,
     getCategoryDataApi,
     categoryDetailsSuccess,
-    categoryDetailsInProgress
+    categoryDetailsInProgress,
+    categoryPagination,
+    setCategoryPagination,
 }) => {
     const navigate = useNavigate();
     const { page } = useParams();
@@ -21,10 +23,13 @@ const AddCategory = ({
     // To set the spinner value
     const [spinner, setSpinner] = useState(false);
 
-   // To get all the category list api
+   // To get all the category list api,
+   // we have done route changing in pagination Component,but need to clean up the code 
    useEffect(() =>{
-    getCategoryDataApi(pageNum);
-   },[getCategoryDataApi])
+    if(pageNum) {
+        getCategoryDataApi(pageNum);
+    }
+   },[])
    
     //Setting up the spinner value
     useEffect(() =>{
@@ -36,8 +41,6 @@ const AddCategory = ({
         setCategoryDetails(getCategoryDetails)
      }
     })
-
-//   console.log(categoryDetails);
 
     const handleCategory = () => {
         navigate("/home/categories/list")
@@ -56,8 +59,13 @@ const AddCategory = ({
                 </button>
             </div>
             <hr />
-            <Spinner spinner={spinner}/>
-            <AddCategoryTableList categoryDetails={categoryDetails}/>
+            {categoryDetailsInProgress ? 
+            <Spinner spinner={spinner}/> 
+            : 
+            <AddCategoryTableList categoryDetails={categoryDetails} pageNum={pageNum} setPageNum={setPageNum}/>
+            }
+            {/* <Spinner spinner={spinner}/>
+            <AddCategoryTableList categoryDetails={categoryDetails} pageNum={pageNum} setPageNum={setPageNum}/> */}
         </div>
     )
 }

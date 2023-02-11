@@ -12,8 +12,10 @@ import "../Home/Home.scss";
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [categoryPagination, setCategoryPagination] = useState(1);
 
- 
+  // console.log(categoryPagination)
+
   return (
     <div className='home'>
       <div className='home--container'>

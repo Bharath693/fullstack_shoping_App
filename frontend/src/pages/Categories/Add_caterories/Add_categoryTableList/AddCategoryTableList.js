@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Pagination from '../../../../reuse/Pagination';
 
 const AddCategoryTableList = (props) => {
+  
   return (
-    <div>
+    <div className='m-3'>
       <table className="w-full bg-gray-900 rounded-md">
         <thead>
           <tr className='border-b border-gray-800 text-left'>
@@ -24,6 +26,7 @@ const AddCategoryTableList = (props) => {
           })}
         </tbody>
       </table>
+      <div><Pagination pagination={props.categoryDetails} pageNum={props.pageNum} setPageNum={props.setPageNum}/></div>
     </div>
   )
 }
