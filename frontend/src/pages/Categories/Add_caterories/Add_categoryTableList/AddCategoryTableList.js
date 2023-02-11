@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Pagination from '../../../../reuse/Pagination';
 
 const AddCategoryTableList = (props) => {
   return (
@@ -24,6 +25,7 @@ const AddCategoryTableList = (props) => {
           })}
         </tbody>
       </table>
+      <div><Pagination pagination={props.categoryDetails} pageNum={props.pageNum} setPageNum={props.setPageNum}/></div>
     </div>
   )
 }

@@ -23,7 +23,6 @@ function* watchPostCategoryDetails(data){
 
 function* watchGetCategoryDetails(page){
   let details = yield call(getCategoryApiCall,page.page);
-  console.log(details)
   try {
      if(details) {
       yield put({type:Actions.GET_CATEGORY_SUCCESS, details})
