@@ -14,27 +14,30 @@ const Pagination = ({
   const navigate = useNavigate();
   let totalPages = [];
   const [path, setPath] = useState("");
-  for (let i = 0; i < Math.round(pagination?.count / 3); i++) {
+  for (let i = 0; i < Math.ceil(pagination?.count / 3); i++) {
     totalPages.push(i);
   }
 
   const handlePageChange = (pageNum) => {
     setPageNum(pageNum + 1);
-    navigate(`/home/categories/${pageNum+1}`)
-    getCategoryDataApi(pageNum+1)
+    navigate(`/home/categories/${pageNum + 1}`);
+    getCategoryDataApi(pageNum + 1);
   };
 
-  console.log(pageNum);
-  console.log(path);
-  console.log(getCategoryDetails)
+  // console.log(pageNum)
   return (
     <div className="paginationMain">
       {totalPages &&
-        totalPages.map((item) => (
-          <div className="pages" onClick={() => handlePageChange(item)}>
-            {item + 1}
-          </div>
-        ))}
+        totalPages.map((item) => {
+          return (
+            <div
+              className={item+1 === pageNum ? "pages-inActive" : "pages-active"}
+              onClick={() => handlePageChange(item)}
+            >
+              {item + 1}
+            </div>
+          );
+        })}
     </div>
   );
 };
