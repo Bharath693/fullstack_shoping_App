@@ -1,11 +1,18 @@
+@mixin pages-background($backgroundColor,$color){
+    margin-left: 5px;
+    padding: 10px;
+    background-color: $backgroundColor;
+    color: $color;
+}
+
 .paginationMain {
     display: flex;
     margin-top: 10px;
     cursor: pointer;
-    .pages {
-        margin-left: 5px;
-        padding: 10px;
-        background-color: gray;
-        color: white;
+    .pages-active {
+        @include pages-background(black,white)
+    }
+    .pages-inActive{
+        @include pages-background(white,black)
     }
 }
