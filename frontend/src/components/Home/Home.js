@@ -8,6 +8,7 @@ import Private from '../../routes/Private';
 import AddCategory from '../../pages/Categories/Add_caterories/AddCategory';
 import CreateCategory from '../../pages/Categories/CreateCategory/CreateCategory';
 import "../Home/Home.scss";
+import UpdateCategory from '../../pages/Categories/UpdateCategory/UpdateCategory';
 
 
 const Home = () => {
@@ -28,6 +29,7 @@ const Home = () => {
               <Route path='/categories' element={<Private><AddCategory /></Private>} />
               <Route path='/categories/:page' element={<Private><AddCategory /></Private>} />
               <Route path='/categories/list' element={<Private><CreateCategory /></Private>}/>
+              <Route path='/updateCategoey/:id' element={<Private><UpdateCategory /></Private>}/>
             </Routes>
         </div>
       </div>

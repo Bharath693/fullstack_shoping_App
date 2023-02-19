@@ -1,7 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Pagination from '../../../../reuse/Pagination';
 
 const AddCategoryTableList = (props) => {
+  console.log(props.categoryDetails);
+  const navigate = useNavigate();
+
+  const handleEdit = (value) =>{
+     navigate(`/home/updateCategoey/${value._id}`,{state:{data:value.name}})
+  }
+
   return (
     <div>
       <table className="w-full bg-gray-900 rounded-md">
@@ -18,7 +26,7 @@ const AddCategoryTableList = (props) => {
             return (
               <tr key={item._id}>
                 <td className="text-white p-3 capitalize">{item.name}</td>
-                <td className='text-white p-3'><button>Edit</button></td>
+                <td className='text-white p-3'><button className='edit-category' onClick={() =>handleEdit(item)}>Edit</button></td>
                 <td className='text-white p-3'><button>Delete</button></td>
               </tr>
             )
