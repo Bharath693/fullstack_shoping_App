@@ -46,6 +46,7 @@ const AddCategory = ({
 
     //Succesfully able to get categoryDetails using Universal-cookies with authuntication
     //but failed to send token to backend using document.cookie need to learn this
+    //need to create Update-category api for that need to use same file(createCategory) as common need to make some changes 
     return (
         <div className='AddCategory'>
             <div>
@@ -62,8 +63,6 @@ const AddCategory = ({
             : 
             <AddCategoryTableList categoryDetails={categoryDetails} pageNum={pageNum} setPageNum={setPageNum}/>
             }
-            {/* <Spinner spinner={spinner}/>
-            <AddCategoryTableList categoryDetails={categoryDetails} pageNum={pageNum} setPageNum={setPageNum}/> */}
         </div>
     )
 }

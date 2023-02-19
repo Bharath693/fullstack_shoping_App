@@ -1,0 +1,29 @@
+@import "../../globalStyles/globalMixins.scss";
+
+.Category {
+    @include mainPages;
+    margin: 10px 0px 0px 10px;
+
+    .Category-categoryBtnDiv {
+        margin: 10px 0px 0px 10px;
+    }
+
+    .Category--CategoryListBtn {
+        // margin: 10px 0px 0px 10px;
+
+        .leftArrow {
+            margin-top: 10px;
+        }
+    }
+
+    .Category--Main {
+        margin-left: 15px;
+    }
+
+    .Category--inputField {
+        width: 50%;
+        padding: 10px;
+        border-radius: 10px;
+        outline: none;
+    }
+}
