@@ -29,6 +29,20 @@ export const getApiCalling = async (url) =>{
    }
 }
 
+export const updateApiCalling = (url, data) =>{
+   const url_Update = process.env.REACT_APP_BASE_URL+"/api"+url;
+   const headers = AuthHeaders();
+   try {
+      return new Promise(async (resolve, reject) =>{
+         await axios.put(url_Update, data,{headers}).then((res) =>{
+            resolve(res)
+         })
+      })
+   } catch (err) {
+      console.log(err)
+   }
+}
+
 const AuthHeaders = () =>{
    let headerToken = getSessionToken();
      const headers = {

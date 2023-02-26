@@ -2,10 +2,17 @@ import React from 'react';
 import Actions from "./actions"
 
 const defaultState = {
+    //get CategoryDetisls state values
     categoryDetails:null,
     categoryDetailsInProgress:false,
     categoryDetailsSuccess:false,
-    categoryDetailsFail:false
+    categoryDetailsFail:false,
+
+    //update CategoryDetsils state values
+    updateCategoryDetails:null,
+    updateCategoryDetailsInProgress:false,
+    updateCategoryDetailsSuccess:false,
+    updateCategoryDetailsFail:false
   } 
 
 const categoryreducers = (state = defaultState,actions) => {
@@ -32,7 +39,28 @@ const categoryreducers = (state = defaultState,actions) => {
             categoryDetailsSuccess:false,
             categoryDetailsFail:true
         }
-  
+    case Actions.UPDATE_CATEGORY_DATA:
+        return {
+            ...state,
+            categoryDetailsInProgress:true,
+            categoryDetailsInSuccess:false,
+            categoryDetailsFail:false
+        }
+    case Actions.UPDATE_CATEGORY_DATA_SUCCESS:
+        return{
+            ...state,
+            updateCategoryDetailsInProgress:false,
+             updateCategoryDetailsSuccess:true,
+            updateCategoryDetails:actions.details,
+            updateCategoryDetailsFail:false,
+        }
+    case Actions.UPDATE_CATEGORY_DATA_FAIL:
+        return {
+            ...state,
+            updateCategoryDetails:false,
+            updateCategoryDetailsSuccess:false,
+            updateCategoryDetailsFail:true
+        }
     default:
         return {...state}
   }

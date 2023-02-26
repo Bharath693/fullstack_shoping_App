@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Pagination from '../../../../reuse/Pagination';
 
 const AddCategoryTableList = (props) => {
-  console.log(props.categoryDetails);
   const navigate = useNavigate();
 
   const handleEdit = (value) =>{
-     navigate(`/home/updateCategoey/${value._id}`,{state:{data:value.name}})
+     navigate(`/home/updateCategoey/${value._id}`,{state:{data:value}})
   }
 
   return (

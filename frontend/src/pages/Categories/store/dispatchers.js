@@ -12,3 +12,9 @@ export const getCategoryDataApi = (page) =>{
         type: Actions.GET_CATEGORY_DATA, page
     }
 }
+
+export const updateCategoryById = (data, id) =>{
+    return {
+        type: Actions.UPDATE_CATEGORY_DATA, data, id
+    }
+}
