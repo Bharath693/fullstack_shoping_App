@@ -1,6 +1,13 @@
 import Actions from "./actions";
 
-//need to work on post api call, previosuly did using redux thun,know need to convert to redux saga
+//converted Post api call to redux saga
+
+export const resetState = () =>{
+    return {
+        type: Actions.RESET_STATE
+    }
+}
+
 export const postCategoryDataApi = (data) =>{
     return {
         type: Actions.POST_CATEGORY_DATA, data
@@ -10,5 +17,17 @@ export const postCategoryDataApi = (data) =>{
 export const getCategoryDataApi = (page) =>{
     return {
         type: Actions.GET_CATEGORY_DATA, page
+    }
+}
+
+export const updateCategoryById = (data, id) =>{
+    return {
+        type: Actions.UPDATE_CATEGORY_DATA, data, id
+    }
+}
+
+export const deleteCategoryById = (data) =>{
+    return {
+        type: Actions.DELETE_CATEGORY_DATA, data,
     }
 }

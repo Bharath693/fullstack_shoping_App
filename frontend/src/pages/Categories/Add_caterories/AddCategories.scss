@@ -5,9 +5,16 @@
     .AddCategory--AddCategoryBtn {
         margin: 10px 0px 0px 10px;
     }
-    .edit-category {
-        background-color: orange;
+
+    @mixin changeBackgroundColor($color){
+        background-color: $color;
         padding: 5px 10px;
         border-radius: 5px;
+    }
+    .edit-category {
+        @include changeBackgroundColor(orange)
+    }
+    .deleteCategory {
+        @include changeBackgroundColor(red)
     }
 }

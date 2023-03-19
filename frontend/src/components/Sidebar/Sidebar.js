@@ -38,16 +38,6 @@ const Sidebar = (props) => {
             )
           })}
         </div>
-        {/* <div className="sidebar">
-          {sidebarData.map((item, index) => {
-            return (
-              <ul className='flex items-center sidebar--list' key={index}>
-                <li className='mr-2 text-white inline-block'>{item.icon}</li>
-                <li className='text-white'>{item.Name}</li>
-              </ul>
-            )
-          })}
-        </div> */}
       </div>
     </>
   )

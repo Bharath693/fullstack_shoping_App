@@ -5,7 +5,7 @@ const Authorized = (req,res,next) =>{
     let headerToken = req.headers.authorization;
     if(headerToken) {
       const tokenVerify = headerToken.split(" ")[1];
-      console.log(tokenVerify);
+      // console.log(tokenVerify);
       const token = headerToken.split(" ")[1];
       const verify = jwt.verify(token,env.JWT_SECRET_KEY);
       if(verify){

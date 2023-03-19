@@ -9,13 +9,16 @@ import "./Category.scss";
 const Category = ({
   btnLabel,
   title,
+  categoryName,
+  handleSubmit,
+  handleChange,
   postCategoryDataApi
 }) => {
-    const value = useLocation();
-    // console.log(value)
+    //Create and update front has been finished need to create UpdateApi in backend
     const navigate = useNavigate();
     const [createCategory, setCreateCategory] = useState({
-      name: value.state === null ? '' : value.state.data,
+      name: categoryName !== null ? categoryName : ""
+
     });  
 
     const handleCategory = () => {
@@ -29,11 +32,17 @@ const Category = ({
         })
       }
     
+      if(handleChange !== undefined){
+           handleChange(createCategory)
+      }
+
       const handleSubmitCategory = async (e) => {
         e.preventDefault();
         // The redux-saga implementation is done for this api need to proceed further
-        postCategoryDataApi(createCategory)
+        // postCategoryDataApi(createCategory)
+         handleSubmit()
       }
+      
   return (
     <div className='Category'>
     <div className='Category-categoryBtnDiv'>
@@ -52,7 +61,7 @@ const Category = ({
             type="text"
             placeholder='Category Name...'
             className='Category--inputField'
-            value={createCategory.name}
+            value={categoryName}
             onChange={handleCreateCategory}
           />
           <div className='mt-3 Category--addCategoryBtn'>
