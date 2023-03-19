@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteCategoryById } from '../../store/dispatchers'
+
 import Pagination from '../../../../reuse/Pagination';
 import "./AddCategoryTableList.scss";
 
@@ -31,6 +32,7 @@ const AddCategoryTableList = ({
   },[deleteCategoryDetailsSuccess])
 
 console.log(categoryDetails)
+
   return (
     <div className='categoryTable'>
       <table className="w-full bg-gray-900 rounded-md">
@@ -49,6 +51,7 @@ console.log(categoryDetails)
                 <td className="text-white p-3 capitalize">{item.name}</td>
                 <td className='text-white p-3'><button className='edit-category' onClick={() =>handleEdit(item)}>Edit</button></td>
                 <td className='text-white p-3'><button className='deleteCategory' onClick={() =>handleDelete(item)}>Delete</button></td>
+
               </tr>
             )
           })}

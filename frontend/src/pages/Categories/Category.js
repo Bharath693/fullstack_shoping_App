@@ -18,6 +18,7 @@ const Category = ({
     const navigate = useNavigate();
     const [createCategory, setCreateCategory] = useState({
       name: categoryName !== null ? categoryName : ""
+
     });  
 
     const handleCategory = () => {
@@ -41,6 +42,7 @@ const Category = ({
         // postCategoryDataApi(createCategory)
          handleSubmit()
       }
+      
   return (
     <div className='Category'>
     <div className='Category-categoryBtnDiv'>

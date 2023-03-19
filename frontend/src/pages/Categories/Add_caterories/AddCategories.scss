@@ -5,6 +5,7 @@
     .AddCategory--AddCategoryBtn {
         margin: 10px 0px 0px 10px;
     }
+
     @mixin changeBackgroundColor($color){
         background-color: $color;
         padding: 5px 10px;
