@@ -1,14 +1,19 @@
-import { postCategoryDataApi } from '../store/dispatchers'
+import { postCategoryDataApi, resetState } from '../store/dispatchers'
 import { connect } from 'react-redux';
 import Category from '../Category';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./CreateCategory.scss";
-import { useState } from 'react';
 
 const CreateCategory = ({
-  createCategory
+  createCategory,
+  postCategoryDetailsSuccess,
+  resetState
 }) => {
+
+  const navigate = useNavigate();
   const [categoryValue, setCategoryValue] = useState({name:""})
-  //need to call CreateApi(Post Api)//Update Api in respective Component is pending know
+  //we are calling create and update api call's in respective components.
 
   //onChangeEvent
   const handleCategoryChange = (value) =>{
@@ -20,7 +25,14 @@ const CreateCategory = ({
     createCategory(categoryValue)
   }
 
- console.log(categoryValue)
+  useEffect(() =>{
+    if(postCategoryDetailsSuccess) {
+      navigate('/home/categories')
+    }
+    resetState();
+  },[navigate, postCategoryDetailsSuccess, resetState])
+
+  
   return (
     <div className='CreateCategory'>
       <Category 
@@ -36,8 +48,16 @@ const CreateCategory = ({
 
 const mapDispatchToProps = (dispatch) =>{
    return{
-      createCategory:(data) => dispatch(postCategoryDataApi(data))
+      createCategory:(data) => dispatch(postCategoryDataApi(data)),
+      resetState:() =>dispatch(resetState())
    }
 }
 
-export default connect(null,mapDispatchToProps)(CreateCategory)
+const mapStateToProps = ({ category }) =>{
+   return{
+    postCategoryDetailsInProgress: category.postCategoryDetailsInProgress,
+    postCategoryDetailsSuccess:category.postCategoryDetailsSuccess
+   }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateCategory)

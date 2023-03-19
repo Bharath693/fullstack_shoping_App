@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateCategoryById } from '../store/dispatchers'
+import { updateCategoryById, resetState } from '../store/dispatchers'
 import Category from '../Category'
 
 
 const UpdateCategory = ({
-  updateCategory
+  updateCategory,
+  updateCategoryDetailsSuccess,
+  resetState
 }) => {
+  const navigate = useNavigate();
   const value = useLocation();
   const [categoryValue, setCategoryValue] = useState({name:value?.state?.data.name});
   // console.log(value)
@@ -22,6 +25,14 @@ const UpdateCategory = ({
   const handleSubmit = () =>{
     updateCategory(categoryValue,value?.state?.data?._id)
   }
+
+  
+  useEffect(() =>{
+    if(updateCategoryDetailsSuccess) {
+      navigate('/home/categories')
+    }
+    resetState()
+  },[navigate, resetState, updateCategoryDetailsSuccess])
 
   return (
     <div className='CreateCategory'>
@@ -38,8 +49,15 @@ const UpdateCategory = ({
 
 const mapDispatchToProps = (dispatch) =>{
   return {
-     updateCategory: (data,id) => dispatch(updateCategoryById(data,id))
+     updateCategory: (data,id) => dispatch(updateCategoryById(data,id)),
+     resetState: () => dispatch(resetState())
   }
 }
 
-export default connect(null,mapDispatchToProps)(UpdateCategory)
+const mapStateToProps = ({ category }) =>{
+  return {
+    updateCategoryDetailsSuccess: category.updateCategoryDetailsSuccess,
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(UpdateCategory)

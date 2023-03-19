@@ -43,6 +43,20 @@ export const updateApiCalling = (url, data) =>{
    }
 }
 
+export const deleteApiCalling = (url) =>{
+   const url_Update = process.env.REACT_APP_BASE_URL+"/api"+url;
+   const headers = AuthHeaders();
+   try {
+      return new Promise(async (resolve, reject) =>{
+         await axios.delete(url_Update,{headers}).then((res) =>{
+            resolve(res)
+         })
+      })
+   } catch (err) {
+      console.log(err)
+   }
+}
+
 const AuthHeaders = () =>{
    let headerToken = getSessionToken();
      const headers = {
