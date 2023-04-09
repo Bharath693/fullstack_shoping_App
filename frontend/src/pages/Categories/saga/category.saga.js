@@ -3,7 +3,6 @@ import { postApiCalling, getApiCalling, updateApiCalling, deleteApiCalling } fro
 import Actions from "../store/actions"
 
 function postCategoryDataApi(createCategory) {
- console.log(createCategory)
  return postApiCalling("/api/createCategory",createCategory.data)
 }
 
