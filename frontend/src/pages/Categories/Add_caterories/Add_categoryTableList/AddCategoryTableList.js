@@ -31,7 +31,7 @@ const AddCategoryTableList = ({
     }
   },[deleteCategoryDetailsSuccess])
 
-console.log(categoryDetails)
+// console.log(categoryDetails)
 
   return (
     <div className='categoryTable'>

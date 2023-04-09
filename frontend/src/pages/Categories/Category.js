@@ -9,9 +9,12 @@ import "./Category.scss";
 const Category = ({
   btnLabel,
   title,
+  placeholder,
   categoryName,
   handleSubmit,
   handleChange,
+  headerTitle,
+  handleRedirectComponent,
   postCategoryDataApi
 }) => {
     //Create and update front has been finished need to create UpdateApi in backend
@@ -47,9 +50,9 @@ const Category = ({
     <div className='Category'>
     <div className='Category-categoryBtnDiv'>
       <button className='bg-gray-900 text-white px-2 py-2 capitalize font-medium Category--CategoryListBtn'
-        onClick={() => handleCategory()}>
+        onClick={handleRedirectComponent}>
         <i className="bi bi-arrow-left-short leftArrow"></i>
-        <span>Category List</span>
+        <span>{headerTitle}</span>
       </button>
     </div>
     <hr />
@@ -59,7 +62,7 @@ const Category = ({
           <h3 className='text-white'>{title}</h3>
           <input
             type="text"
-            placeholder='Category Name...'
+            placeholder={placeholder}
             className='Category--inputField'
             value={categoryName}
             onChange={handleCreateCategory}

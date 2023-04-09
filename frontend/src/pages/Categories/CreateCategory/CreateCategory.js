@@ -20,6 +20,10 @@ const CreateCategory = ({
     setCategoryValue(value)
 }
 
+  const handleRedirectComponent = () =>{
+    navigate("/home/categories")
+  }
+
   // //onSubmit event
   const handleSubmit = () =>{
     createCategory(categoryValue)
@@ -36,11 +40,14 @@ const CreateCategory = ({
   return (
     <div className='CreateCategory'>
       <Category 
+      headerTitle="Category List"
       title="Create Category" 
       btnLabel="Create Category"
+      placeholder="Category Name..."
       categoryName={categoryValue.name}
       handleSubmit={handleSubmit}
       handleChange={handleCategoryChange}
+      handleRedirectComponent={handleRedirectComponent}
       />
     </div>
   )
