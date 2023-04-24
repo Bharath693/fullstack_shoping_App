@@ -56,20 +56,20 @@ const LoginForm = ({
                     <h4 className='text-center'>Login</h4>
                     <div className='grid-cols-1 mb-2'>
                         <Inputfield
-                            Name="email"
+                            name="email"
                             placeholder="Email"
                             type="text"
-                            userDetails={userDetails.email}
-                            getUserDetails={getUserLoginDetsils}
+                            value={userDetails.email}
+                            handleTextFieldValue={getUserLoginDetsils}
                         />
                     </div>
                     <div className='grid-cols-1 mb-2'>
                         <Inputfield
-                            Name="password"
+                            name="password"
                             placeholder="Password"
                             type="text"
-                            userDetails={userDetails.password}
-                            getUserDetails={getUserLoginDetsils}
+                            value={userDetails.password}
+                            handleTextFieldValue={getUserLoginDetsils}
                         />
                     </div>
                     <div className='Login--Container--LoginBtnDiv'>
