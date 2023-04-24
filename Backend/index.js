@@ -26,7 +26,7 @@ app.use(cors())
 app.use(userRoutes);
 
 //category routes
-app.use("/api",categoryRoutes)
+app.use("/api",categoryRoutes);
 
 const port = env.PORT || 5000;
 

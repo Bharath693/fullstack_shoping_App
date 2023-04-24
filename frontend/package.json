@@ -15,6 +15,7 @@
     "jwt-decode": "^3.1.2",
     "postcss": "^8.4.17",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
@@ -24,6 +25,7 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.55.0",
     "universal-cookie": "^4.0.4",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
