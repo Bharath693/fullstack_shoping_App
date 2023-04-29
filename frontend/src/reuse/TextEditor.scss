@@ -1,0 +1,11 @@
+.TextEditor {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    .ql-toolbar.ql-snow {
+        @apply border-none bg-gray-900
+    }
+
+    .ql-container {
+        background-color: white;
+    }
+}
