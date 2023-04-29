@@ -9,6 +9,7 @@
   }
   .MuiOutlinedInput-root {
     height: 38px;
+    box-sizing: border-box;
   }
 
   .ProductListForm {
@@ -27,5 +28,13 @@
     border-radius: 5px;
     margin-bottom: 7px;
     cursor: pointer;
+  }
+
+  .InputFileContainer {
+   
+   .input-file {
+    @apply block file:py-2.5 file:px-4 file:rounded file:cursor-pointer file:bg-indigo-600
+     file:text-white file:text-sm file:font-medium file:mr-4
+   }
   }
 }

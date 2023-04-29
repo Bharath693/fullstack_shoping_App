@@ -7,11 +7,13 @@ import * as dispatcher from "../store/dispatchers";
 import { connect } from "react-redux";
 import Dropdown from "../../../reuse/Dropdown";
 import Spinner from "../../../reuse/Spinner";
-import { TwitterPicker } from 'react-color';
-import { v4 as uuidv4 } from 'uuid';
+import { TwitterPicker } from "react-color";
+import { v4 as uuidv4 } from "uuid";
 import Colors from "./colors";
-import "./ProductList.scss";
 import ProductSizes from "./ProductSizes";
+import ImagePreview from "./ImagePreview";
+import "./ProductList.scss";
+import TextEditor from "../../../reuse/TextEditor";
 
 const ProductList = ({
   getCategoryDetails,
@@ -27,15 +29,33 @@ const ProductList = ({
     discount: 0,
     stock: 0,
     category: "",
-    color:[]
+    color: [],
+    size:[],
+    image1:'',
+    description:''
   });
 
-  const sizes = ['xsm','sm','md','lg','1 year', '2 years', '3 years', '4 years', '5 years'];
+  const sizes = [
+    "xsm",
+    "sm",
+    "md",
+    "lg",
+    "1 year",
+    "2 years",
+    "3 years",
+    "4 years",
+    "5 years",
+  ];
 
   const [sizeList, setSizeList] = useState([]);
 
   //declearing the spinner state value
   const [spinner, setSpinner] = useState(false);
+
+  //declearing this state inorder to get image Url
+  const [preview, setPreview] = useState({
+    image1 : ''
+  })
 
   const handleTextFieldValue = (e) => {
     setProducts({
@@ -67,31 +87,59 @@ const ProductList = ({
   const handleValueChange = (e) => {
     setProducts({
       ...products,
-      category:e.target.value
-    })
+      category: e.target.value,
+    });
   };
 
-  const saveColor = (color) =>{
-       const filtered = products.color.filter((clr) => clr.color !== color.hex);
-       setProducts({...products, color:[...filtered, {color : color.hex, id:uuidv4()}]})
-  }
+  const saveColor = (color) => {
+    const filtered = products.color.filter((clr) => clr.color !== color.hex);
+    setProducts({
+      ...products,
+      color: [...filtered, { color: color.hex, id: uuidv4() }],
+    });
+  };
 
-  const deleteColor = (color) =>{
+  const deleteColor = (color) => {
     const filtered = products.color.filter((clr) => clr.color !== color);
-    setProducts({...products, color: filtered})
-  }
+    setProducts({ ...products, color: filtered });
+  };
 
-  const chooseSize = (ProductSize) =>{
-      let filtered = sizeList.filter((size) => size !== ProductSize);
-      setSizeList([...filtered, ProductSize])
-  }
+  const chooseSize = (ProductSize) => {
+    let filtered = sizeList.filter((size) => size !== ProductSize);
+    setSizeList([...filtered, ProductSize]);
+  };
 
-  const deleteSize = (productSize) =>{
+  const deleteSize = (productSize) => {
     let filtered = sizeList.filter((size) => size !== productSize);
-      setSizeList(filtered)
+    setSizeList(filtered);
+  };
+
+  const onImageChange = (e) =>{
+    if(e.target.files.length !== 0) {
+      setProducts({
+        ...products,
+        [e.target.name]:e.target.files[0]
+       })
+       let reader = new FileReader();
+       reader.onloadend = () =>{
+          setPreview({
+            ...preview,
+            [e.target.name]:reader.result
+          })
+       }
+       reader.readAsDataURL(e.target.files[0])
+    }
   }
- 
-  console.log(sizeList)
+
+ const handleDescriptionChange = (value) =>{
+     setProducts({
+      ...products,
+      description: value
+     })
+ }
+
+ console.log(products)
+
   return (
     <div className="ProductList">
       <div className="form-group">
@@ -179,43 +227,40 @@ const ProductList = ({
                 <div className="col-lg-6 mt-5">
                   <label>Choose Color</label>
                   <div className="mt-2">
-                    <TwitterPicker 
-                     onChangeComplete={saveColor}
-                    />
+                    <TwitterPicker onChangeComplete={saveColor} />
                   </div>
                 </div>
                 <div className="col-lg-6 mt-5">
                   <h3>Choose Size</h3>
-                    <div className="ProductSizes">
-                      {sizes && sizes.map((size) =>{
+                  <div className="ProductSizes">
+                    {sizes &&
+                      sizes.map((size) => {
                         return (
                           <>
-                          <div className="AllignIndividualProductSizes" onClick={() => chooseSize(size)}>{size}</div>
+                            <div
+                              className="AllignIndividualProductSizes"
+                              onClick={() => chooseSize(size)}
+                            >
+                              {size}
+                            </div>
                           </>
-                        )
+                        );
                       })}
-                    </div>
+                  </div>
+                </div>
+                <div className="InputFileContainer">
+                    <label>Image 1</label>
+                    <input type="file" className="input-file" name="image1" onChange={onImageChange}/>
+                </div>
+                <div>
+                  <TextEditor value={products.description} setValue={handleDescriptionChange}/>
                 </div>
               </div>
-              {/* <div className="mt-5">
-                {categoryDetailsInProgress ? (
-                  <Spinner spinner={spinner}/>
-                ) : (
-                  <Dropdown
-                    getDropdownDetails={
-                      getCategoryDetails && getCategoryDetails.catrgories
-                    }
-                    initialOptionLabel="choose category"
-                    label="Categories"
-                    value={categoryValue}
-                    handleValueChange={handleValueChange}
-                  />
-                )}
-              </div> */}
             </div>
             <div className="col-lg-4">
-                <Colors colorsList= {products.color} deleteColor={deleteColor} />
-                <ProductSizes productList={sizeList} deleteSize={deleteSize}/>
+              <Colors colorsList={products.color} deleteColor={deleteColor} />
+              <ProductSizes productList={sizeList} deleteSize={deleteSize} />
+              <ImagePreview url={preview} heading="image"/>
             </div>
           </div>
         </form>

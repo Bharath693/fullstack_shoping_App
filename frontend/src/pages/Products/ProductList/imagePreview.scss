@@ -1,0 +1,15 @@
+.imagePreview {
+
+    .imageHeading {
+      color: white;
+    }
+
+    .imageContainer {
+        width: 94%;
+        
+        img {
+            width: 100%;
+            min-height: 150px;
+        }
+    }
+}
