@@ -2,7 +2,7 @@ import React from 'react'
 import "./imagePreview.scss";
 
 const ImagePreview = ({ url, heading }) => {
-  console.log(url)
+ 
   return (
     <div className='imagePreview'>
         {url.image1 !== "" && 

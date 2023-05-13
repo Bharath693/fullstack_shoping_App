@@ -14,16 +14,18 @@ import ProductSizes from "./ProductSizes";
 import ImagePreview from "./ImagePreview";
 import "./ProductList.scss";
 import TextEditor from "../../../reuse/TextEditor";
+import Cookies from "universal-cookie";
 
 const ProductList = ({
   getCategoryDetails,
   getCategoryDataApiCall,
   categoryDetailsSuccess,
   categoryDetailsInProgress,
+  createProduct,
 }) => {
   const navigate = useNavigate();
   const [categoryValue, setCategoryValue] = useState("");
-  const [products, setProducts] = useState({
+  const [product, setProduct] = useState({
     title: "",
     price: 0,
     discount: 0,
@@ -58,8 +60,8 @@ const ProductList = ({
   })
 
   const handleTextFieldValue = (e) => {
-    setProducts({
-      ...products,
+    setProduct({
+      ...product,
       [e.target.name]: e.target.value,
     });
   };
@@ -85,39 +87,44 @@ const ProductList = ({
 
   //to get the data from dropdown we are using this function
   const handleValueChange = (e) => {
-    setProducts({
-      ...products,
+    setProduct({
+      ...product,
       category: e.target.value,
     });
   };
 
   const saveColor = (color) => {
-    const filtered = products.color.filter((clr) => clr.color !== color.hex);
-    setProducts({
-      ...products,
+    const filtered = product.color.filter((clr) => clr.color !== color.hex);
+    setProduct({
+      ...product,
       color: [...filtered, { color: color.hex, id: uuidv4() }],
     });
   };
 
   const deleteColor = (color) => {
-    const filtered = products.color.filter((clr) => clr.color !== color);
-    setProducts({ ...products, color: filtered });
+    const filtered = product.color.filter((clr) => clr.color !== color);
+    setProduct({ ...product, color: filtered });
   };
 
   const chooseSize = (ProductSize) => {
     let filtered = sizeList.filter((size) => size !== ProductSize);
     setSizeList([...filtered, ProductSize]);
+    setProduct({
+      ...product,
+      size: [...filtered, ProductSize]
+    })
   };
 
   const deleteSize = (productSize) => {
     let filtered = sizeList.filter((size) => size !== productSize);
     setSizeList(filtered);
+    setProduct({...product, size: filtered})
   };
 
   const onImageChange = (e) =>{
     if(e.target.files.length !== 0) {
-      setProducts({
-        ...products,
+      setProduct({
+        ...product,
         [e.target.name]:e.target.files[0]
        })
        let reader = new FileReader();
@@ -132,13 +139,27 @@ const ProductList = ({
   }
 
  const handleDescriptionChange = (value) =>{
-     setProducts({
-      ...products,
+     setProduct({
+      ...product,
       description: value
      })
  }
 
- console.log(products)
+ //on handleSubmit if their is a image which has to be sent to the api then we need to send
+ //formData to the backend in headers the content type should be multipart/form-data
+ const handleSubmit = (e) =>{
+     e.preventDefault();
+     const formData = new FormData();
+     formData.append('title',product.title)
+     formData.append('price', product.price)
+     formData.append('discount', product.discount)
+     formData.append('stock', product.stock)
+     formData.append('category', product.category)
+    //  formData.append('color',product.color)
+     formData.append('sizes', product.size)
+     formData.append('image1',product.image1)
+     createProduct(formData)
+ }
 
   return (
     <div className="ProductList">
@@ -153,7 +174,7 @@ const ProductList = ({
           </button>
           <hr />
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row ProductListForm">
             <div className="col-lg-8">
               <div className="row">
@@ -164,7 +185,7 @@ const ProductList = ({
                       placeholder="Title"
                       name="title"
                       type="text"
-                      value={products.title}
+                      value={product.title}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -177,7 +198,7 @@ const ProductList = ({
                       placeholder="Price"
                       name="price"
                       type="text"
-                      value={products.price}
+                      value={product.price}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -190,7 +211,7 @@ const ProductList = ({
                       placeholder="Discount"
                       name="discount"
                       type="text"
-                      value={products.discount}
+                      value={product.discount}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -203,7 +224,7 @@ const ProductList = ({
                       placeholder="Stock"
                       name="stock"
                       type="text"
-                      value={products.stock}
+                      value={product.stock}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -219,7 +240,8 @@ const ProductList = ({
                       }
                       initialOptionLabel="choose category"
                       label="Categories"
-                      value={products.category}
+                      name="category"
+                      value={product.category}
                       handleValueChange={handleValueChange}
                     />
                   )}
@@ -234,12 +256,13 @@ const ProductList = ({
                   <h3>Choose Size</h3>
                   <div className="ProductSizes">
                     {sizes &&
-                      sizes.map((size) => {
+                      sizes.map((size, index) => {
                         return (
                           <>
                             <div
                               className="AllignIndividualProductSizes"
                               onClick={() => chooseSize(size)}
+                              key={index}
                             >
                               {size}
                             </div>
@@ -253,12 +276,13 @@ const ProductList = ({
                     <input type="file" className="input-file" name="image1" onChange={onImageChange}/>
                 </div>
                 <div>
-                  <TextEditor value={products.description} setValue={handleDescriptionChange}/>
+                  <TextEditor value={product.description} setValue={handleDescriptionChange}/>
                 </div>
+                <button className="ProductListSaveBtn" type="submit">Save Product</button>
               </div>
             </div>
             <div className="col-lg-4">
-              <Colors colorsList={products.color} deleteColor={deleteColor} />
+              <Colors colorsList={product.color} deleteColor={deleteColor} />
               <ProductSizes productList={sizeList} deleteSize={deleteSize} />
               <ImagePreview url={preview} heading="image"/>
             </div>

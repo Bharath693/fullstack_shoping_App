@@ -1,14 +1,13 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import { postApiCalling } from "../../../service/AuthService";
+import { postApiCallingWithImageUpload } from "../../../service/AuthService";
 import Actions from "../store/actions";
 
 function postProductDataApi(createProduct) {
   console.log(createProduct)
-  return postApiCalling("/api/createProduct",createProduct.data)
+  return postApiCallingWithImageUpload("/api/createProduct",createProduct.data)
  }
 
  function* watchPostProductDetails(data){
-  console.log(data)
   let details = yield call(postProductDataApi,data)
   try {
     if(details){
