@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
 
-module.exports.categoryValidation = [
-    body('name').not().isEmpty().trim().withMessage("category name is required"),
+module.exports.productValidation = [
+    body('title').not().isEmpty().trim().withMessage("Product title is required"),
 ]

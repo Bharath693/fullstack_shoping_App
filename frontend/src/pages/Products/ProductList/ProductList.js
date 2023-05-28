@@ -155,12 +155,18 @@ const ProductList = ({
      formData.append('discount', product.discount)
      formData.append('stock', product.stock)
      formData.append('category', product.category)
-    //  formData.append('color',product.color)
+     formData.append('color',JSON.stringify(product.color))
      formData.append('sizes', product.size)
      formData.append('image1',product.image1)
+     /* this for loop is used to get the values of formData Object,because if you nor,ally console the formData
+      it is not giving the output */
+
+    //  for (const [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
      createProduct(formData)
  }
-
+  // console.log(product.color)
   return (
     <div className="ProductList">
       <div className="form-group">

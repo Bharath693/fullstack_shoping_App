@@ -23,7 +23,7 @@ export const postApiCallingWithImageUpload = (url, data) => {
   let cookies = new Cookies();
   let token = cookies.get("token");
   return new Promise(async (resolve, reject) => {
-    axios
+   await axios
       .post(url_post, data ,{headers:{
         "Content-Type": "multipart/form-data",
         "authorization": `Bearer ${token}`

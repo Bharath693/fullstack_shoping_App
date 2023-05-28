@@ -15,14 +15,34 @@ let upload = multer({
 
 module.exports.createProduct = async (req, res) => {
     
-    upload(req, res, (err) => {
+    upload(req, res, async (err) => {
     if (err) {
-        console.error(err);
         res.status(500).send('Error uploading file');
       } else {
-        console.log(req.headers, "headers");
-        // console.log(req);
-        res.send('File uploaded successfully');
+        const errors = validationResult(req.body.title)
+        if(errors.isEmpty()) {
+            const productList = new ProductModel({
+              title:req.body.title,
+              price:req.body.price,
+              discount:req.body.dicount,
+              stock:req.body.stock,
+              category:req.body.category,
+              color:req.body.color,
+              size:req.body.size,
+              image1:req.body.image1,
+              description:req.body.description
+            })
+            try {
+              let product = await ProductModel.create(productList);
+              res.status(200).json({msg:"Product created succesfully"})
+            } catch (error) {
+              console.log(error)
+              res.status(400).json({msg: error})
+            }
+        }else{
+          res.status(400).json({ errors: errors.array() });
+        }
+        res.status('File uploaded successfully');
       }
     });
 };

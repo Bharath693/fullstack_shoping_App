@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { createProduct } = require("../../controllers/Product/ProductController");
-const { Authorized } = require("../../services/AuthorizationService")
-const multer = require('multer');
-
+const { productValidation } = require("../../validations/ProductValidations")
+const { Authorized } = require("../../services/AuthorizationService");
 
 router.use(express.static(__dirname+"./public/"));
 
 // console.log(upload,"upload")
-router.post("/createproduct",Authorized, createProduct)
+router.post("/createproduct",Authorized, productValidation, createProduct)
 
 module.exports = router
