@@ -14,12 +14,14 @@ import ProductSizes from "./ProductSizes";
 import ImagePreview from "./ImagePreview";
 import "./ProductList.scss";
 import TextEditor from "../../../reuse/TextEditor";
+import Cookies from "universal-cookie";
 
 const ProductList = ({
   getCategoryDetails,
   getCategoryDataApiCall,
   categoryDetailsSuccess,
   categoryDetailsInProgress,
+  createProduct,
 }) => {
   const navigate = useNavigate();
   const [categoryValue, setCategoryValue] = useState("");
@@ -31,7 +33,7 @@ const ProductList = ({
     category: "",
     color: [],
     size:[],
-    image1:'',
+    image:'',
     description:''
   });
 
@@ -107,11 +109,16 @@ const ProductList = ({
   const chooseSize = (ProductSize) => {
     let filtered = sizeList.filter((size) => size !== ProductSize);
     setSizeList([...filtered, ProductSize]);
+    setProduct({
+      ...product,
+      size: [...filtered, ProductSize]
+    })
   };
 
   const deleteSize = (productSize) => {
     let filtered = sizeList.filter((size) => size !== productSize);
     setSizeList(filtered);
+    setProduct({...product, size: filtered})
   };
 
   const onImageChange = (e) =>{
@@ -138,7 +145,28 @@ const ProductList = ({
      })
  }
 
- console.log(products)
+ //on handleSubmit if their is a image which has to be sent to the api then we need to send
+ //formData to the backend in headers the content type should be multipart/form-data
+ const handleSubmit = (e) =>{
+     e.preventDefault();
+     const formData = new FormData();
+     formData.append('title',product.title)
+     formData.append('price', product.price)
+     formData.append('discount', product.discount)
+     formData.append('stock', product.stock)
+     formData.append('category', product.category)
+     formData.append('color',JSON.stringify(product.color))
+     formData.append('size', product.size)
+     formData.append('image',product.image)
+     /* this for loop is used to get the values of formData Object,because if you nor,ally console the formData
+      it is not giving the output */
+
+    //  for (const [key, value] of formData.entries()) {
+    //   console.log(key, value,"165");
+    // }
+    
+     createProduct(formData)
+ }
 
   return (
     <div className="ProductList">
@@ -153,7 +181,8 @@ const ProductList = ({
           </button>
           <hr />
         </div>
-        <form>
+
+        <form onSubmit={handleSubmit}>
           <div className="row ProductListForm">
             <div className="col-lg-8">
               <div className="row">
@@ -164,7 +193,7 @@ const ProductList = ({
                       placeholder="Title"
                       name="title"
                       type="text"
-                      value={products.title}
+                      value={product.title}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -177,7 +206,7 @@ const ProductList = ({
                       placeholder="Price"
                       name="price"
                       type="text"
-                      value={products.price}
+                      value={product.price}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -190,7 +219,7 @@ const ProductList = ({
                       placeholder="Discount"
                       name="discount"
                       type="text"
-                      value={products.discount}
+                      value={product.discount}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -203,7 +232,7 @@ const ProductList = ({
                       placeholder="Stock"
                       name="stock"
                       type="text"
-                      value={products.stock}
+                      value={product.stock}
                       handleTextFieldValue={handleTextFieldValue}
                       className="inputField--Input"
                     />
@@ -219,7 +248,8 @@ const ProductList = ({
                       }
                       initialOptionLabel="choose category"
                       label="Categories"
-                      value={products.category}
+                      name="category"
+                      value={product.category}
                       handleValueChange={handleValueChange}
                     />
                   )}
@@ -234,12 +264,13 @@ const ProductList = ({
                   <h3>Choose Size</h3>
                   <div className="ProductSizes">
                     {sizes &&
-                      sizes.map((size) => {
+                      sizes.map((size, index) => {
                         return (
                           <>
                             <div
                               className="AllignIndividualProductSizes"
                               onClick={() => chooseSize(size)}
+                              key={index}
                             >
                               {size}
                             </div>
@@ -250,15 +281,16 @@ const ProductList = ({
                 </div>
                 <div className="InputFileContainer">
                     <label>Image 1</label>
-                    <input type="file" className="input-file" name="image1" onChange={onImageChange}/>
+                    <input type="file" className="input-file" name="image" onChange={onImageChange}/>
                 </div>
                 <div>
-                  <TextEditor value={products.description} setValue={handleDescriptionChange}/>
+                  <TextEditor value={product.description} setValue={handleDescriptionChange}/>
                 </div>
+                <button className="ProductListSaveBtn" type="submit">Save Product</button>
               </div>
             </div>
             <div className="col-lg-4">
-              <Colors colorsList={products.color} deleteColor={deleteColor} />
+              <Colors colorsList={product.color} deleteColor={deleteColor} />
               <ProductSizes productList={sizeList} deleteSize={deleteSize} />
               <ImagePreview url={preview} heading="image"/>
             </div>

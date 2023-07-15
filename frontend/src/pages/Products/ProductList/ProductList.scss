@@ -10,10 +10,15 @@
   .MuiOutlinedInput-root {
     height: 38px;
     box-sizing: border-box;
+
+    .MuiInputBase-input {
+      height: 5px;
+    }
   }
 
   .ProductListForm {
     margin-left: 20px;
+    margin-bottom: 30px;
   }
 
   .ProductSizes {
@@ -36,5 +41,13 @@
     @apply block file:py-2.5 file:px-4 file:rounded file:cursor-pointer file:bg-indigo-600
      file:text-white file:text-sm file:font-medium file:mr-4
    }
+  }
+
+  .ProductListSaveBtn {
+    width: 20%;
+    background-color: #1976D2;
+    color: white;
+    padding: 8px 0px;
+    margin-left: 12px;
   }
 }
