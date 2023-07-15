@@ -25,7 +25,7 @@ const ProductList = ({
 }) => {
   const navigate = useNavigate();
   const [categoryValue, setCategoryValue] = useState("");
-  const [products, setProducts] = useState({
+  const [product, setProduct] = useState({
     title: "",
     price: 0,
     discount: 0,
@@ -56,12 +56,12 @@ const ProductList = ({
 
   //declearing this state inorder to get image Url
   const [preview, setPreview] = useState({
-    image1 : ''
+    image : ''
   })
 
   const handleTextFieldValue = (e) => {
-    setProducts({
-      ...products,
+    setProduct({
+      ...product,
       [e.target.name]: e.target.value,
     });
   };
@@ -87,23 +87,23 @@ const ProductList = ({
 
   //to get the data from dropdown we are using this function
   const handleValueChange = (e) => {
-    setProducts({
-      ...products,
+    setProduct({
+      ...product,
       category: e.target.value,
     });
   };
 
   const saveColor = (color) => {
-    const filtered = products.color.filter((clr) => clr.color !== color.hex);
-    setProducts({
-      ...products,
+    const filtered = product.color.filter((clr) => clr.color !== color.hex);
+    setProduct({
+      ...product,
       color: [...filtered, { color: color.hex, id: uuidv4() }],
     });
   };
 
   const deleteColor = (color) => {
-    const filtered = products.color.filter((clr) => clr.color !== color);
-    setProducts({ ...products, color: filtered });
+    const filtered = product.color.filter((clr) => clr.color !== color);
+    setProduct({ ...product, color: filtered });
   };
 
   const chooseSize = (ProductSize) => {
@@ -123,8 +123,8 @@ const ProductList = ({
 
   const onImageChange = (e) =>{
     if(e.target.files.length !== 0) {
-      setProducts({
-        ...products,
+      setProduct({
+        ...product,
         [e.target.name]:e.target.files[0]
        })
        let reader = new FileReader();
@@ -139,8 +139,8 @@ const ProductList = ({
   }
 
  const handleDescriptionChange = (value) =>{
-     setProducts({
-      ...products,
+     setProduct({
+      ...product,
       description: value
      })
  }
