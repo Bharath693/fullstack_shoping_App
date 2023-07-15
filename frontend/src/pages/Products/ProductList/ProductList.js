@@ -25,7 +25,7 @@ const ProductList = ({
 }) => {
   const navigate = useNavigate();
   const [categoryValue, setCategoryValue] = useState("");
-  const [product, setProduct] = useState({
+  const [products, setProducts] = useState({
     title: "",
     price: 0,
     discount: 0,
@@ -60,8 +60,8 @@ const ProductList = ({
   })
 
   const handleTextFieldValue = (e) => {
-    setProduct({
-      ...product,
+    setProducts({
+      ...products,
       [e.target.name]: e.target.value,
     });
   };
@@ -87,23 +87,23 @@ const ProductList = ({
 
   //to get the data from dropdown we are using this function
   const handleValueChange = (e) => {
-    setProduct({
-      ...product,
+    setProducts({
+      ...products,
       category: e.target.value,
     });
   };
 
   const saveColor = (color) => {
-    const filtered = product.color.filter((clr) => clr.color !== color.hex);
-    setProduct({
-      ...product,
+    const filtered = products.color.filter((clr) => clr.color !== color.hex);
+    setProducts({
+      ...products,
       color: [...filtered, { color: color.hex, id: uuidv4() }],
     });
   };
 
   const deleteColor = (color) => {
-    const filtered = product.color.filter((clr) => clr.color !== color);
-    setProduct({ ...product, color: filtered });
+    const filtered = products.color.filter((clr) => clr.color !== color);
+    setProducts({ ...products, color: filtered });
   };
 
   const chooseSize = (ProductSize) => {
@@ -123,9 +123,9 @@ const ProductList = ({
 
   const onImageChange = (e) =>{
     if(e.target.files.length !== 0) {
-      setProduct({
-        ...product,
-        image:e.target.files[0]
+      setProducts({
+        ...products,
+        [e.target.name]:e.target.files[0]
        })
        let reader = new FileReader();
        reader.onloadend = () =>{
@@ -139,8 +139,8 @@ const ProductList = ({
   }
 
  const handleDescriptionChange = (value) =>{
-     setProduct({
-      ...product,
+     setProducts({
+      ...products,
       description: value
      })
  }
@@ -167,6 +167,7 @@ const ProductList = ({
     
      createProduct(formData)
  }
+
   return (
     <div className="ProductList">
       <div className="form-group">
@@ -180,6 +181,7 @@ const ProductList = ({
           </button>
           <hr />
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className="row ProductListForm">
             <div className="col-lg-8">

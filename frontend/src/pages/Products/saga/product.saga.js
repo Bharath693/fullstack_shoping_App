@@ -1,9 +1,19 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import { postApiCallingWithImageUpload } from "../../../service/AuthService";
+import { postApiCalling } from "../../../service/AuthService";
+import Actions from "../store/actions";
 import Actions from "../store/actions";
 
 function postProductDataApi(createProduct) {
   return postApiCallingWithImageUpload("/api/createProduct",createProduct.data)
+ }
+
+
+
+
+function postProductDataApi(createProduct) {
+  console.log(createProduct)
+  return postApiCalling("/api/createProduct",createProduct.data)
  }
 
  function* watchPostProductDetails(data){

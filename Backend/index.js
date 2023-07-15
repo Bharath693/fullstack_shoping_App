@@ -32,6 +32,7 @@ app.use("/api",categoryRoutes);
 //Product routes
 app.use("/api",productRoutes)
 
+
 const port = env.PORT || 5000;
 
 app.listen(port,() =>{
