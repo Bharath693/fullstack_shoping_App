@@ -3,7 +3,6 @@ import { postApiCallingWithImageUpload } from "../../../service/AuthService";
 import Actions from "../store/actions";
 
 function postProductDataApi(createProduct) {
-  console.log(createProduct)
   return postApiCallingWithImageUpload("/api/createProduct",createProduct.data)
  }
 

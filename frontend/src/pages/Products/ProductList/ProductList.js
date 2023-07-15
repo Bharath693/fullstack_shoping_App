@@ -33,7 +33,7 @@ const ProductList = ({
     category: "",
     color: [],
     size:[],
-    image1:'',
+    image:'',
     description:''
   });
 
@@ -125,7 +125,7 @@ const ProductList = ({
     if(e.target.files.length !== 0) {
       setProduct({
         ...product,
-        [e.target.name]:e.target.files[0]
+        image:e.target.files[0]
        })
        let reader = new FileReader();
        reader.onloadend = () =>{
@@ -156,17 +156,17 @@ const ProductList = ({
      formData.append('stock', product.stock)
      formData.append('category', product.category)
      formData.append('color',JSON.stringify(product.color))
-     formData.append('sizes', product.size)
-     formData.append('image1',product.image1)
+     formData.append('size', product.size)
+     formData.append('image',product.image)
      /* this for loop is used to get the values of formData Object,because if you nor,ally console the formData
       it is not giving the output */
 
     //  for (const [key, value] of formData.entries()) {
-    //   console.log(key, value);
+    //   console.log(key, value,"165");
     // }
+    
      createProduct(formData)
  }
-  // console.log(product.color)
   return (
     <div className="ProductList">
       <div className="form-group">
@@ -279,7 +279,7 @@ const ProductList = ({
                 </div>
                 <div className="InputFileContainer">
                     <label>Image 1</label>
-                    <input type="file" className="input-file" name="image1" onChange={onImageChange}/>
+                    <input type="file" className="input-file" name="image" onChange={onImageChange}/>
                 </div>
                 <div>
                   <TextEditor value={product.description} setValue={handleDescriptionChange}/>

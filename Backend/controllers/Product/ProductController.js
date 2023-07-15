@@ -11,10 +11,9 @@ const storage = multer.diskStorage({
 
 let upload = multer({
   storage: storage,
-}).single("image1");
+}).single("image");
 
 module.exports.createProduct = async (req, res) => {
-    
     upload(req, res, async (err) => {
     if (err) {
         res.status(500).send('Error uploading file');
@@ -29,7 +28,7 @@ module.exports.createProduct = async (req, res) => {
               category:req.body.category,
               color:req.body.color,
               size:req.body.size,
-              image1:req.body.image1,
+              image:req.file.filename,
               description:req.body.description
             })
             try {
