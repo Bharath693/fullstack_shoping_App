@@ -1,12 +1,47 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getAllProductsApi } from '../store/dispatchers'
+import { connect } from "react-redux";
+import Spinner from "../../../reuse/Spinner";
+import ProductsTable from "./ProductsTable/ProductsTable"
 
-const CreateProduct = () => {
+const CreateProduct = (
+    { 
+        getAllProductsApiCall, 
+        getAllProducts,
+        getAllProductsInProgress,
+        getAllProductsSuccess 
+    }
+    ) => {
+    const { page } = useParams();
+    const [pageNum, setPageNum] = useState(page ? Number(page) : 1)
+
+    //to set All the Products comming from an api call
+    const [AllProducts, setAllProducts] = useState([]);
+    //to set the spinner
+    const [spinner, setSpinner] = useState(false);
+
     const navigate = useNavigate();
 
     const handleCategory = () => {
         navigate("/home/products/list")
     }
+
+    //using this useEffect for Api call inorder to get All the product details
+    useEffect(() =>{
+        getAllProductsApiCall(page)
+    },[getAllProductsApiCall, page])
+
+    //using this useEffect to set the value of spinner && All products
+    useEffect(() =>{
+        if(getAllProductsInProgress) {
+            setSpinner(true)
+        }
+        if(getAllProductsSuccess) {
+            setSpinner(false)
+            setAllProducts(getAllProducts)
+        }
+    },[getAllProducts, getAllProductsInProgress, getAllProductsSuccess])
 
   return (
     <div className='AddCategory'>
@@ -19,13 +54,27 @@ const CreateProduct = () => {
                 </button>
             </div>
             <hr />
-            {/* {categoryDetailsInProgress ? 
-            <Spinner spinner={spinner}/> 
+            {getAllProductsInProgress ? 
+            <Spinner spinner={spinner}/>
             : 
-            <AddCategoryTableList categoryDetails={categoryDetails} pageNum={pageNum} setPageNum={setPageNum}/>
-            } */}
+            <ProductsTable productDetails={AllProducts} pageNum={pageNum}/>
+            }
         </div>
   );
-};
+}; 
 
-export default CreateProduct;
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        getAllProductsApiCall:(page) => dispatch(getAllProductsApi(page))
+    }
+}
+
+const mapStateToProps = ({ product }) =>{
+    return {
+        getAllProducts: product.getAllProductsDetails,
+        getAllProductsInProgress: product.getAllProductDetailsInProgress,
+        getAllProductsSuccess: product.getAllProductsDetailsSuccess
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProduct);

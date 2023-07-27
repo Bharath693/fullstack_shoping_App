@@ -51,7 +51,6 @@ const AddCategoryTableList = ({
                 <td className="text-white p-3 capitalize">{item.name}</td>
                 <td className='text-white p-3'><button className='edit-category' onClick={() =>handleEdit(item)}>Edit</button></td>
                 <td className='text-white p-3'><button className='deleteCategory' onClick={() =>handleDelete(item)}>Delete</button></td>
-
               </tr>
             )
           })}

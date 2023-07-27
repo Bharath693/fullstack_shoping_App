@@ -11,3 +11,9 @@ export const postProductDataApi = (data) =>{
         type: Actions.POST_PRODUCT_DATA, data
     }
 }
+
+export const getAllProductsApi = (page) =>{
+    return {
+        type: Actions.GET_All_PRODUCTS_DATA, page
+    }
+}
