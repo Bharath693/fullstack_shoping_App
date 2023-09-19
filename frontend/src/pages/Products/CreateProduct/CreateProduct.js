@@ -14,6 +14,7 @@ const CreateProduct = (
     }
     ) => {
     const { page } = useParams();
+   
     const [pageNum, setPageNum] = useState(page ? Number(page) : 1)
 
     //to set All the Products comming from an api call

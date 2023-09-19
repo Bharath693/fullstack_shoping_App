@@ -17,3 +17,24 @@ export const getAllProductsApi = (page) =>{
         type: Actions.GET_All_PRODUCTS_DATA, page
     }
 }
+
+export const getProductById = (id) =>{
+    return {
+        type: Actions.GET_PRODUCT_BY_ID_DATA, id
+    }
+}
+
+export const updateProductById = (id, data) =>{
+    return {
+        type : Actions.UPDATE_PRODUCT_BY_ID_DATA, 
+        id, 
+        data
+    }
+}
+
+export const deleteProductById = (id) =>{
+    return {
+        type: Actions.DELETE_PRODUCT_BY_ID_DATA,
+        id
+    }
+}

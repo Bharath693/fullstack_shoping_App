@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import Dashboard from '../../pages/Dashboard/Dashboard';
 import CreateProduct from '../../pages/Products/CreateProduct/CreateProduct';
+import EditProduct from '../../pages/Products/EditProduct/EditProduct';
 import ProductList from '../../pages/Products/ProductList/ProductList';
 import Private from '../../routes/Private';
 import AddCategory from '../../pages/Categories/Add_caterories/AddCategory';
@@ -28,6 +29,7 @@ const Home = () => {
               <Route path='/dashboard' element = {<Private><Dashboard /></Private>}/>
               <Route path='/products' element ={<Private><CreateProduct /></Private>}/>
               <Route path='/products/:page' element ={<Private><CreateProduct /></Private>}/>
+              <Route path='/edit-product/:id' element ={<Private><EditProduct /></Private>}/>
               <Route path='/products/list' element={<Private><ProductList /></Private>}/>
               <Route path='/categories' element={<Private><AddCategory /></Private>} />
               <Route path='/categories/:page' element={<Private><AddCategory /></Private>} />

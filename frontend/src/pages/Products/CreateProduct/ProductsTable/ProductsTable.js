@@ -1,12 +1,24 @@
 import React from 'react';
 import "./ProductsTable.scss";
+import { useNavigate } from 'react-router-dom';
+import { deleteProductById } from "../../store/dispatchers";
+import { connect } from 'react-redux'
 
-const showProducts = ({
+//let with delete Product by Id 
+const ShowProducts = ({
   productDetails,
-  pageNum
+  deleteProductById
 }) => {
- 
-  //pending with the image path need to check that
+  const navigate = useNavigate();
+  
+  const handleEditProduct = (item) =>{
+    navigate(`/home/edit-product/${item._id}`)
+  }
+
+  const handleDeleteProduct = (item) =>{
+     deleteProductById(item._id)
+  }
+
   return (
     <div className='productTable'>
         <table className="w-full bg-gray-900 rounded-md">
@@ -16,7 +28,7 @@ const showProducts = ({
             <th className="p-3 capitalize font-medium text-gray-500">Price</th>
             <th className='p-3 capitalize font-medium text-gray-500'>Stock</th>
             <th className='p-3 capitalize font-medium text-gray-500'>Image</th>
-            <th className="p-3 capitalize font-medium text-gray-500">Edit</th>
+            <th className="p-3 capitalize font-medium text-gray-500" >Edit</th>
             <th className='p-3 capitalize font-medium text-gray-500'>Delete</th>
           </tr>
            </thead>
@@ -28,8 +40,8 @@ const showProducts = ({
                 <td className="text-white p-3 capitalize">{item.price}</td>
                 <td className="text-white p-3 capitalize">{item.stock}</td>
                 <td className="text-white p-3 capitalize"><img src={`http://localhost:5000/api/${item.image}`} alt='loading...' className='productTable'/></td>
-                <td className='text-white p-3'><button className='edit-category'>Edit</button></td>
-                <td className='text-white p-3'><button className='deleteCategory'>Delete</button></td>
+                <td className='text-white p-3'><button className='edit-category' onClick={() =>handleEditProduct(item)}>Edit</button></td>
+                <td className='text-white p-3'><button className='deleteCategory' onClick={() =>handleDeleteProduct(item)}>Delete</button></td>
               </tr>
                 )
               })}
@@ -39,4 +51,10 @@ const showProducts = ({
   )
 }
 
-export default showProducts
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    deleteProductById:(id) => dispatch(deleteProductById(id))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ShowProducts)

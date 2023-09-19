@@ -1,27 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TextField from "../../../reuse/inputfield";
+import { useParams } from "react-router-dom";
+import { getProductById, updateProductById } from "../store/dispatchers";
 import { getCategoryDataApi } from "../../Categories/store/dispatchers";
-import { postProductDataApi } from "../store/dispatchers";
 import { connect } from "react-redux";
+import Colors from "../ProductList/colors";
+import { v4 as uuidv4 } from "uuid";
+import ProductSizes from "../ProductList/ProductSizes";
+import TextEditor from "../../../reuse/TextEditor";
+import { TwitterPicker } from "react-color";
 import Dropdown from "../../../reuse/Dropdown";
 import Spinner from "../../../reuse/Spinner";
-import { TwitterPicker } from "react-color";
-import { v4 as uuidv4 } from "uuid";
-import Colors from "./colors";
-import ProductSizes from "./ProductSizes";
-import ImagePreview from "./ImagePreview";
-import "./ProductList.scss";
-import TextEditor from "../../../reuse/TextEditor";
+import TextField from "../../../reuse/inputfield";
 
-const ProductList = ({
+//need to check with the data sending with the backend
+const EditProduct = ({
+  getProductDetailsByIdApiCall,
   getCategoryDetails,
   getCategoryDataApiCall,
   categoryDetailsSuccess,
   categoryDetailsInProgress,
-  createProduct,
+  productDetailsById,
+  updateProductById,
 }) => {
+  useEffect(() =>{
+    console.log(productDetailsById,"EditProduct")
+  },[productDetailsById])
+  
   const navigate = useNavigate();
+
+  //get id from use Params
+  const { id } = useParams();
+
+  //using this useEffect to call An Api to get the product details based on the Id
+  useEffect(() => {
+    if (id) {
+      getProductDetailsByIdApiCall(id);
+    }
+  }, [getProductDetailsByIdApiCall, id]);
 
   const [product, setProduct] = useState({
     title: "",
@@ -30,9 +46,9 @@ const ProductList = ({
     stock: 0,
     category: "",
     color: [],
-    size:[],
-    image:'',
-    description:''
+    size: [],
+    image:"",
+    description: "",
   });
 
   const sizes = [
@@ -52,24 +68,28 @@ const ProductList = ({
   //declearing the spinner state value
   const [spinner, setSpinner] = useState(false);
 
-  //declearing this state inorder to get image Url
-  const [preview, setPreview] = useState({
-    image : ''
-  })
-
-  const handleTextFieldValue = (e) => {
-    setProduct({
-      ...product,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleRedirectComponent = () => {
-    navigate("/home/products");
-  };
-
+  //setting data based on the GetDataById ApiCall
   useEffect(() => {
-    getCategoryDataApiCall(1);
+    if (productDetailsById !== null) {
+      setProduct({
+        title: productDetailsById?.data.title,
+        price: productDetailsById?.data.price,
+        discount: productDetailsById?.data.discount,
+        stock: productDetailsById?.data.stock,
+        category: productDetailsById?.data.category,
+        color: JSON.parse(productDetailsById?.data?.color),
+        size: JSON.parse(productDetailsById?.data.size),
+        image: productDetailsById?.data.image,
+        description: productDetailsById?.data.description,
+      });
+    }
+  }, [productDetailsById]);
+
+  //Always need to call the API to get the dropDown data
+  useEffect(() => {
+    if (getCategoryDataApiCall) {
+      getCategoryDataApiCall(1);
+    }
   }, [getCategoryDataApiCall]);
 
   useEffect(() => {
@@ -80,6 +100,13 @@ const ProductList = ({
       setSpinner(false);
     }
   }, [categoryDetailsInProgress, categoryDetailsSuccess]);
+
+  const handleTextFieldValue = (e) => {
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   //to get the data from dropdown we are using this function
   const handleValueChange = (e) => {
@@ -103,67 +130,47 @@ const ProductList = ({
   };
 
   const chooseSize = (ProductSize) => {
-    let filtered = sizeList.filter((size) => size !== ProductSize);
-    setSizeList([...filtered, ProductSize]);
+    let filtered = product.size.filter((size) => size !== ProductSize);
+    console.log(filtered, "chooseZize");
+    // setSizeList([...filtered, ProductSize]);
     setProduct({
       ...product,
-      size: [...filtered, ProductSize]
-    })
+      size: [...filtered, ProductSize],
+    });
   };
 
   const deleteSize = (productSize) => {
-    let filtered = sizeList.filter((size) => size !== productSize);
-    setSizeList(filtered);
-    setProduct({...product, size: filtered})
+    let filtered = product.size.filter((size) => size !== productSize);
+    // setSizeList(filtered);
+    setProduct({ ...product, size: filtered });
   };
 
-  const onImageChange = (e) =>{
-    if(e.target.files.length !== 0) {
-      setProduct({
-        ...product,
-        [e.target.name]:e.target.files[0]
-       })
-       let reader = new FileReader();
-       reader.onloadend = () =>{
-          setPreview({
-            ...preview,
-            [e.target.name]:reader.result
-          })
-       }
-       reader.readAsDataURL(e.target.files[0])
-    }
-  }
-
- const handleDescriptionChange = (value) =>{
-     setProduct({
+  const handleDescriptionChange = (value) => {
+    setProduct({
       ...product,
-      description: value
-     })
- }
+      description: value,
+    });
+  };
 
- //on handleSubmit if their is a image which has to be sent to the api then we need to send
- //formData to the backend in headers the content type should be multipart/form-data
- const handleSubmit = (e) =>{
-     e.preventDefault();
-     const formData = new FormData();
-     formData.append('title',product.title)
-     formData.append('price', product.price)
-     formData.append('discount', product.discount)
-     formData.append('stock', product.stock)
-     formData.append('category', product.category)
-     formData.append('color',JSON.stringify(product.color))
-     formData.append('size', JSON.stringify(product.size))
-     formData.append('image',product.image)
-     formData.append('description',product.description);
-     /* this for loop is used to get the values of formData Object,because if you nor,ally console the formData
-      it is not giving the output */
+  const handleRedirectComponent = () => {
+    navigate("/home/products");
+  };
 
-    //  for (const [key, value] of formData.entries()) {
-    //   console.log(key, value,"165");
-    // }
-
-     createProduct(formData)
- }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let details = {
+      title: product.title,
+      price: product.price,
+      discount: product.discount,
+      stock: product.stock,
+      category: product.category,
+      color: JSON.stringify(product.color),
+      size: JSON.stringify(product.size),
+      image: product.image,
+      description: product.description,
+    };
+    updateProductById(id, details)
+  };
 
   return (
     <div className="ProductList">
@@ -276,20 +283,23 @@ const ProductList = ({
                       })}
                   </div>
                 </div>
-                <div className="InputFileContainer">
-                    <label>Image 1</label>
-                    <input type="file" className="input-file" name="image" onChange={onImageChange}/>
-                </div>
                 <div>
-                  <TextEditor value={product.description} setValue={handleDescriptionChange}/>
+                  <TextEditor
+                    value={product.description}
+                    setValue={handleDescriptionChange}
+                  />
                 </div>
-                <button className="ProductListSaveBtn" type="submit">Save Product</button>
+                <button className="ProductListSaveBtn" type="submit">
+                  Update Product
+                </button>
               </div>
             </div>
             <div className="col-lg-4">
               <Colors colorsList={product.color} deleteColor={deleteColor} />
-              <ProductSizes productList={sizeList} deleteSize={deleteSize} />
-              <ImagePreview url={preview} heading="image"/>
+              <ProductSizes
+                productList={product.size}
+                deleteSize={deleteSize}
+              />
             </div>
           </div>
         </form>
@@ -300,16 +310,19 @@ const ProductList = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProduct: (data) => dispatch(postProductDataApi(data)),
     getCategoryDataApiCall: (pageNum) => dispatch(getCategoryDataApi(pageNum)),
+    getProductDetailsByIdApiCall: (data) => dispatch(getProductById(data)),
+    updateProductById: (id, data) => dispatch(updateProductById(id, data)),
   };
 };
 
-const mapStateToProps = ({ category }) => {
+const mapStateToProps = ({ category, product }) => {
   return {
     getCategoryDetails: category.categoryDetails,
     categoryDetailsSuccess: category.categoryDetailsSuccess,
     categoryDetailsInProgress: category.categoryDetailsInProgress,
+    productDetailsById: product.getProductByIdDetails,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);

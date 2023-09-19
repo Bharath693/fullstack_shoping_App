@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createProduct, getProducts } = require("../../controllers/Product/ProductController");
+const { createProduct, getProducts, getProduct, updateProductById, deleteProductById } = require("../../controllers/Product/ProductController");
 const { productValidation } = require("../../validations/ProductValidations")
 const { Authorized } = require("../../services/AuthorizationService");
 const path = require('path')
@@ -13,5 +13,8 @@ router.use("/uploads",express.static('uploads'));
 creating the get Api */
 router.post("/createproduct",Authorized, productValidation, createProduct)
 router.get("/getAllProducts/:page", Authorized, getProducts)
+router.get("/getProductById/:id", Authorized, getProduct)
+router.put("/updateProductById/:id", Authorized, updateProductById)
+router.delete("/deleteProductById/:id", Authorized, deleteProductById)
 
 module.exports = router

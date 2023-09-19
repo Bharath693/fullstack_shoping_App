@@ -1,6 +1,7 @@
 import React from "react";
 
 const ProductSizes = ({ productList, deleteSize }) => {
+
   return (
     <div className="colors">
       {productList.length > 0 && (

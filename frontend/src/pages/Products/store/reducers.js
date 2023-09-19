@@ -10,7 +10,13 @@ const defaultState = {
   getAllProductsDetails: null,
   getAllProductDetailsInProgress: false,
   getAllProductsDetailsSuccess: false,
-  getAllProductsDetailsFail: false
+  getAllProductsDetailsFail: false,
+
+  //get Product by id
+  getProductByIdDetails: null,
+  getProductDetailsByIdInProgress:false,
+  getProductsDetailsByIdSuccess: false,
+  getProductsDetailsByIdFail: false,
 };
 
 const productreducers = (state = defaultState, actions) => {
@@ -71,6 +77,30 @@ const productreducers = (state = defaultState, actions) => {
         getAllProductsDetailsFail: true
       }
     }
+
+    case Actions.GET_PRODUCT_BY_ID_DATA : 
+    return {
+      ...state,
+      getProductDetailsByIdInProgress:true,
+      getProductsDetailsByIdSuccess:false,
+      getProductsDetailsByIdFail:false
+    }
+    
+    case Actions.GET_PRODUCT_BY_ID_DATA_SUCCESS :
+      return {
+        ...state,
+        getProductDetailsByIdInProgress:false,
+        getProductsDetailsByIdSuccess: true,
+        getProductByIdDetails: actions.details,
+        getProductsDetailsByIdFail: false,
+      }
+    case Actions.GET_PRODUCT_BY_ID_DATA_FAIL :
+      return {
+        ...state,
+        getProductDetailsByIdInProgress:false,
+        getProductsDetailsByIdSuccess:false,
+        getProductsDetailsByIdFail:true
+      }
     default:
       return { ...state };
   }

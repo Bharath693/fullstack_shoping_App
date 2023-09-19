@@ -27,7 +27,7 @@ const AddCategory = ({
     if(pageNum) {
         getCategoryDataApi(pageNum);
     }
-   },[])
+   },[getCategoryDataApi, pageNum])
    
     //Setting up the spinner value
     useEffect(() =>{
@@ -38,7 +38,7 @@ const AddCategory = ({
         setSpinner(false);
         setCategoryDetails(getCategoryDetails)
      }
-    })
+    },[categoryDetailsInProgress, categoryDetailsSuccess, getCategoryDetails])
 
     const handleCategory = () => {
         navigate("/home/categories/list")
