@@ -4,7 +4,7 @@ import menu_icon from "../../assests/menu-icon.jpg"
 // import { logOutUser } from "../../ReduxStore/dispatchers/getRegisteredUserToken";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { removeUserToken } from "../../pages/auth/LoginPage/store/dispatcher";
+import { removeUserToken } from "../auth/LoginPage/store/dispatcher";
 import { connect } from 'react-redux'
 import "../Header/Header.scss";
 
