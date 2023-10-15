@@ -8,6 +8,7 @@ function getLoginToken(userDetails){
 
 function* watchPostUserData(userDetails){
   let details =   yield call(getLoginToken, userDetails?.data);
+  console.log(details,"detailsSaga")
   try {
     if(details){
         yield put({ type: Actions.GET_TOKEN_SUCCESS , details})

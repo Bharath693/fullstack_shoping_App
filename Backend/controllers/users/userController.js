@@ -19,6 +19,7 @@ module.exports.register = async (req, res) => {
                 name,
                 email,
                 password:hashPassword,
+                admin:true
             })
            const token = createToken(newUser);
            res.status(200).json({msg:"Account has been created succesfully!",token})

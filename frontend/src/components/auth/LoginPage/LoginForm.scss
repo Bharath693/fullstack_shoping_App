@@ -1,11 +1,29 @@
-.LoginForm {
-    .Login--Container {
+@import "../../../globalStyles/globalMixins.scss";
 
-        .Login--Container--LoginBtnDiv {
-            margin-bottom: 10px;
+.LoginFormHeaderBackgroundImg {
+    // height: 300px;
+    // width: 100%;
+    // background: url('../../../assests/clothesStore.jpeg');
+    // position: relative;
+    @include NavbackgroundImg;
+}
+
+.LoginForm {
+    .loginFormMain {
+        padding: 44px 68px;
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.2);
+        position: absolute;
+        margin-top: -25px;
+        background-color: white;
+        .Login--Container {
+    
+            .Login--Container--LoginBtnDiv {
+                margin-bottom: 10px;
+            }
+            .RegisterLink {
+                text-decoration: none;
+              }
         }
-        .RegisterLink {
-            text-decoration: none;
-          }
     }
+  
 }

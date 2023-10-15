@@ -1,0 +1,38 @@
+@import "../../styles/colors";
+@import "../../globalStyles/globalMixins.scss";
+
+.userPage {
+     
+    .userHeaderBackgroundImg {
+        @include NavbackgroundImg;
+        color: $white;
+        display: flex;
+        align-items: center;
+
+        .userpage-myAccount-container {
+            margin-left: 20px;
+        }
+    }
+
+    .userpage-accountDetails {
+        margin-top: 100px;
+    }
+
+    .userpage-menu {
+        display: flex;
+        margin-left: 20px;
+        text-decoration: none;
+        color: gray;
+        width: 50%;
+        padding: 10px;
+        
+        .usepage-myAccountText {
+            margin-left: 15px;
+            color: gray;
+            font-weight: 500;
+        }
+    }
+    a.active {
+        background-color: lightgrey;
+    }
+}
