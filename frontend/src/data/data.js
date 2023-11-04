@@ -21,11 +21,11 @@ export const sidebarData = [
         icon:<i className="bi bi-people-fill"></i>,
         Name: "Customers"
     },
-    // {
-    //     icon:<i className="bi bi-bar-chart-fill"></i>,
-    //     Name: "Categories",
-    //     route:"categories"
-    // }
+    {
+        icon:<i className="bi bi-bar-chart-fill"></i>,
+        Name: "Categories",
+        route:"categories"
+    }
 ]
 
 export const SliderImages = [

@@ -1,6 +1,6 @@
 .swiper {
     width: 100%;
-    height: 100vh;
+    height: 70vh;
   }
   
   .swiper-slide {
@@ -17,10 +17,47 @@
   .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
     object-fit: cover;
+    position: relative;
   }
 
   .sliderImage {
     background: no-repeat;
+    object-fit: cover;
+   
+  }
+
+  //custome css of the swiper
+  .slide {
+    position: relative;
+    height: 100vh;
+
+    .Slider-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .HomePageProductsCategoryData {
+    position: absolute;
+  }
+  .category {
+    background-color: red;
+  }
+
+  .sliderBackgroundTxt {
+    color: #fff;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+  }
+
+  .browserCollectionBtn {
+    background-color: rgb(99, 99, 219);
+    color: white;
+  }
+
+  .browserCollectionBtn:hover {
+    background-color: rgb(99, 99, 219) !important;
+    color: white !important;
   }
