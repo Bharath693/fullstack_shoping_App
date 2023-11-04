@@ -6,6 +6,7 @@ const connect = require('./config/db');
 const userRoutes = require('./routers/Users/userRouters');
 const categoryRoutes = require('./routers/Category/CategoryRoutes');
 const productRoutes = require('./routers/Product/ProductRoutes')
+const homePageRoutes = require('./routers/HomeProducts/HomeProductsRoutes')
 const cors = require('cors')
 
 
@@ -30,7 +31,9 @@ app.use(userRoutes);
 app.use("/api",categoryRoutes);
 
 //Product routes
-app.use("/api",productRoutes)
+app.use("/api",productRoutes);
+
+app.use("/api",homePageRoutes)
 
 
 const port = env.PORT || 5000;

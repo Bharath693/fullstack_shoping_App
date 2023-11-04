@@ -67,3 +67,25 @@ if(id.id === modifiedId){
   res.status(400).json({msg:'category Id is not matched to delete the category !'})
 }
 }
+
+module.exports.allCategories = async (req, res) =>{
+  let allCategories = await categoryModel.find();
+  try {
+     if(allCategories) {
+      res.status(200).json({allCategories: allCategories})
+     }
+  } catch (error) {
+      res.status(400).json({msg:"categories not found"})
+  }
+}
+
+module.exports.randomCategory = async(req,res) =>{
+   try {
+     let categories = await categoryModel.aggregate([
+      {$sample: {size: 3}}
+     ])
+     return res.status(200).json({categories})
+   } catch (error) {
+      return res.status(500).json('internal Server error')
+   }
+}

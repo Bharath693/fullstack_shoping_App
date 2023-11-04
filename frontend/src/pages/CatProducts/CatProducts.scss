@@ -1,0 +1,36 @@
+@import "../../globalStyles/globalMixins.scss";
+
+.catProduct {
+
+    .catProductContainer {
+        @include NavbackgroundImg;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .catProductimgMain {
+        width: 300px;
+        height: 220px;
+        img {
+            width: 95%;
+            height: 100%;
+            margin: auto;
+        }
+    }
+
+    .catProductLink {
+        text-decoration: none;
+
+        .catProductTitle {
+            text-transform: capitalize;
+            color: black;
+            margin: 5px 0px 0px 10px;
+        }
+    }
+
+    .alert-danger {
+        background-color: #ffcccb;
+        border-left: 3px solid red;
+    }
+}

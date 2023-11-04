@@ -32,7 +32,7 @@ const Header = ({logOutUser, logOutSuccess},props) => {
       <div className='navbar--header'>
         <div className='HomeImageMain' onClick={handleSidebarToggle}>
           {/* <span className='navbar--header--menu'></span> */}
-          <Link to="/home/dashboard"><img src={HomeLogo} alt="Menu" className='navbar--header--menu'/></Link>
+          <Link to="/"><img src={HomeLogo} alt="Menu" className='navbar--header--menu'/></Link>
         </div>
         <div className='flex mr-2 justify-end w-50'>
           <div className='navbarRight'>
