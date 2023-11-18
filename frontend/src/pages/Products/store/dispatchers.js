@@ -38,3 +38,10 @@ export const deleteProductById = (id) =>{
         id
     }
 }
+
+export const getProductDetailsById = (id) =>{
+    return {
+        type: Actions.PRODUCT_DETAILS_BY_ID,
+        id
+    }
+}

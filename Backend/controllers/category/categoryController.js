@@ -51,7 +51,6 @@ module.exports.updateCategoryById = async (req, res) => {
       res.status(400).json({msg:"given Id doesn't match to update the category"})
     }
   } else {
-    console.log("category doesnot matched");
     res.status(400).json({ msg: "category doesnot matched" });
   }
 };

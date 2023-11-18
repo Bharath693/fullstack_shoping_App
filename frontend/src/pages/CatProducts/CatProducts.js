@@ -22,6 +22,11 @@ const CatProducts = ({
     catProductDispatcher(name, page);
   }, [catProductDispatcher, name, page]);
 
+  //using this function to get the product details of the selected product
+  const handleProductClick = (details) =>{
+     
+  }
+
   return (
     <div className="catProduct">
       <Header />
@@ -48,7 +53,7 @@ const CatProducts = ({
               const discountPrice = item !== null && item.price - item.price * percentage;
 
               return (
-                <Link to="/" className="catProductLink">
+                <Link to={`/product/${item._id}`} className="catProductLink">
                   <div className="catProductimgMain">
                     <img
                       src={`http://localhost:5000/api/${item.image}`}

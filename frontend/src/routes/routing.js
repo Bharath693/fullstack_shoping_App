@@ -6,6 +6,7 @@ import User from '../pages/users/Users';
 import Home from '../components/Home/Home';
 import HomePageProducts from '../components/HomePageProducts/HomePageProducts';
 import CatProducts from "../pages/CatProducts/CatProducts"
+import ProductDetails from '../pages/Products/ProductDetails/ProductDetails';
 
 import Private from './Private';
 
@@ -16,6 +17,7 @@ const Routing = () => {
      <Routes>
         {/* <Route path='/' element={<Navigate to="/login" replace />}/> */}
         <Route path='/' element={<HomePageProducts />}/>
+        <Route path='/product/:id' element={<ProductDetails />}/>
         <Route path='cat-products/:name' element={<CatProducts />}/>
         <Route path='cat-products/:name/:page' element={<CatProducts />}/>
         <Route path='/login' element={<LoginForm />}/>

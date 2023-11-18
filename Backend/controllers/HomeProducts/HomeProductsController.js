@@ -22,3 +22,17 @@ module.exports.getHomepageProducts = async (req,res) =>{
         res.status(500).json({msg:"internal server error"})
     }
 }
+
+module.exports.getHomeProductDetails = async (req, res) =>{
+  let id = req.params.id;
+    try {
+        if(id) {
+            let productDetails = await ProductModel.findOne({_id:id})
+            res.status(200).json({ProductDetails:productDetails})
+        }else{
+           res.status(400).json({msg:"ProductDetails not found"})
+        } 
+    } catch (error) {
+        res.status(400).json({error:error})
+    } 
+}

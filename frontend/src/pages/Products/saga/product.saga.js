@@ -25,6 +25,10 @@ function deleteProductById(data) {
     return deleteApiCalling(`/deleteProductById/${data.id}`)
 }
 
+function getProductDetailsByID(data) {
+    return getApiCalling(`/cat-products/${data?.id}`)
+}
+
  function* watchPostProductDetails(data){
   let details = yield call(postProductDataApi,data);
   try {
@@ -73,12 +77,24 @@ function* watchDeleteProductByIdDetails(data) {
   let details =   yield call(deleteProductById,data);
 }
 
+function* watchGetProductDetailsById(data) {
+  let details =   yield call(getProductDetailsByID,data)
+  try {
+     if(details) {
+      yield put({ type:Actions.PRODUCT_DETAILS_BY_ID_SUCCESS, details })
+     }
+  } catch (error) {
+      yield put({type: Actions.PRODUCT_DETAILS_BY_ID_FAIL, error})
+  }
+}
+
 const productSaga = [
   takeLatest(Actions.POST_PRODUCT_DATA, watchPostProductDetails),
   takeLatest(Actions.GET_All_PRODUCTS_DATA, watchGetAllProductsDetails),
   takeLatest(Actions.GET_PRODUCT_BY_ID_DATA, watchGetProductByIdDetails),
   takeLatest(Actions.UPDATE_PRODUCT_BY_ID_DATA, watchUpdateProductByIdDetails),
-  takeLatest(Actions.DELETE_PRODUCT_BY_ID_DATA, watchDeleteProductByIdDetails)
+  takeLatest(Actions.DELETE_PRODUCT_BY_ID_DATA, watchDeleteProductByIdDetails),
+  takeLatest(Actions.PRODUCT_DETAILS_BY_ID, watchGetProductDetailsById)
 ];
 
 export default productSaga

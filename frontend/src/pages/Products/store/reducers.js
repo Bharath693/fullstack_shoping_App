@@ -17,6 +17,12 @@ const defaultState = {
   getProductDetailsByIdInProgress:false,
   getProductsDetailsByIdSuccess: false,
   getProductsDetailsByIdFail: false,
+
+  //getProductDetailsById for particuar product Data
+  getProductDataById: null,
+  getProductDataByIdInProgress: false,
+  getProductDataByIdSuccess: false,
+  getProductDataByIdFail: false
 };
 
 const productreducers = (state = defaultState, actions) => {
@@ -101,7 +107,31 @@ const productreducers = (state = defaultState, actions) => {
         getProductsDetailsByIdSuccess:false,
         getProductsDetailsByIdFail:true
       }
+    case Actions.PRODUCT_DETAILS_BY_ID :
+      return {
+        ...state,
+        getProductDataByIdInProgress: true,
+        getProductDataByIdSuccess: false,
+        getProductDataByIdFail: false
+      }
+    case Actions.PRODUCT_DETAILS_BY_ID_SUCCESS :
+      console.log(actions.details,"reducer")
+      return {
+        ...state,
+        getProductDataById: actions.details,
+        getProductDataByIdInProgress: false,
+        getProductDataByIdSuccess: true,
+        getProductDataByIdFail: false
+      }
+    case Actions.PRODUCT_DETAILS_BY_ID_FAIL :
+      return {
+        ...state,
+        getProductDataByIdInProgress: false,
+        getProductDataByIdSuccess: false,
+        getProductDataByIdFail: true
+        }
     default:
+   
       return { ...state };
   }
 };

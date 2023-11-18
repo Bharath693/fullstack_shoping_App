@@ -33,7 +33,8 @@ app.use("/api",categoryRoutes);
 //Product routes
 app.use("/api",productRoutes);
 
-app.use("/api",homePageRoutes)
+//HomePage routes
+app.use("/api",homePageRoutes);
 
 
 const port = env.PORT || 5000;
