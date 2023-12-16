@@ -78,7 +78,7 @@ function* watchDeleteProductByIdDetails(data) {
 }
 
 function* watchGetProductDetailsById(data) {
-  let details =   yield call(getProductDetailsByID,data)
+  let details =   yield call(getProductDetailsByID,data);
   try {
      if(details) {
       yield put({ type:Actions.PRODUCT_DETAILS_BY_ID_SUCCESS, details })

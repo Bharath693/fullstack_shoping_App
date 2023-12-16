@@ -4,7 +4,7 @@ import { ProductCategoryDispatcher } from "./store/dispatcher";
 import Animate from "../../components/HomePageProducts/Animate/Animate";
 import currency from "currency-formatter"
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./CatProducts.scss";
@@ -14,9 +14,9 @@ const CatProducts = ({
   catProductDatainProgress,
   catProductDetails,
 }) => {
-  // console.log(catProductDetails.data,"ProductDetails")
+  
   const { name, page = 1 } = useParams();
-
+ 
   //using this useEffect to get the categoryProducts
   useEffect(() => {
     catProductDispatcher(name, page);
@@ -51,9 +51,14 @@ const CatProducts = ({
             {catProductDetails?.data?.HomeProducts.map((item) => {
               const percentage = item !== null && item.discount/100;
               const discountPrice = item !== null && item.price - item.price * percentage;
-
+             console.log(item)
               return (
-                <Link to={`/product/${item._id}`} className="catProductLink">
+                // <Link to={`/product/${item._id}`} className="catProductLink">
+                <Link 
+                 to={`/product/${item._id}`}
+                 state={name}
+                className="catProductLink"
+                >
                   <div className="catProductimgMain">
                     <img
                       src={`http://localhost:5000/api/${item.image}`}

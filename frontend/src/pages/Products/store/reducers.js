@@ -115,7 +115,6 @@ const productreducers = (state = defaultState, actions) => {
         getProductDataByIdFail: false
       }
     case Actions.PRODUCT_DETAILS_BY_ID_SUCCESS :
-      console.log(actions.details,"reducer")
       return {
         ...state,
         getProductDataById: actions.details,

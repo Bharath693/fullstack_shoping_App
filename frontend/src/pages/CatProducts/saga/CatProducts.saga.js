@@ -10,7 +10,6 @@ function getCatProductsApiCall(data) {
 }
 
 function* watchGetCatProductDetails(data) {
-    console.log(data,"data")
     let details = yield call(getCatProductsApiCall,data);
     try {
         if(details) {
