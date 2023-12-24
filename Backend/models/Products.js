@@ -18,9 +18,10 @@ const productSchema = mongoose.Schema({
     category: {
         type: String
     },
-    color: {
-        type: Array
-    },
+    color: [{
+      color: {type: String},
+      id: {type: String}
+    }],
     size: {
         type: Array
     },

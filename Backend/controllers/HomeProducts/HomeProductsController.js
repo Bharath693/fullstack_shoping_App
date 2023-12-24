@@ -6,7 +6,7 @@ module.exports.getHomepageProducts = async (req,res) =>{
         if(name) {
             let products = await ProductModel.find({})
             if(products.length > 0) {
-                let categoryProducts  = products.map((item) =>{
+                let categoryProducts  = products.filter((item) =>{
                      if(name.toLowerCase() === item.category.toLowerCase() && Number(item.stock) > 0) {
                          return item
                      }

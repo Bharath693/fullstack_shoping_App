@@ -27,6 +27,8 @@ const CatProducts = ({
      
   }
 
+  console.log(catProductDetails,"productDetails")
+
   return (
     <div className="catProduct">
       <Header />
@@ -51,7 +53,6 @@ const CatProducts = ({
             {catProductDetails?.data?.HomeProducts.map((item) => {
               const percentage = item !== null && item.discount/100;
               const discountPrice = item !== null && item.price - item.price * percentage;
-             console.log(item)
               return (
                 // <Link to={`/product/${item._id}`} className="catProductLink">
                 <Link 
