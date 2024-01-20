@@ -55,7 +55,7 @@ function* watchGetProductByIdDetails(id) {
   let details = yield call(getProductByIdApi, id);
   try {
     if(details){
-      yield put({type: Actions.GET_PRODUCT_BY_ID_DATA_SUCCESS, action:"hello"})
+      yield put({type: Actions.GET_PRODUCT_BY_ID_DATA_SUCCESS, details})
     }
   } catch (error) {
     yield put({ type: Actions.GET_PRODUCT_BY_ID_DATA_FAIL, error})

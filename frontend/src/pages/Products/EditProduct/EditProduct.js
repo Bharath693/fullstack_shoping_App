@@ -23,9 +23,6 @@ const EditProduct = ({
   productDetailsById,
   updateProductById,
 }) => {
-  useEffect(() =>{
-    console.log(productDetailsById,"EditProduct")
-  },[productDetailsById])
   
   const navigate = useNavigate();
 
@@ -77,7 +74,7 @@ const EditProduct = ({
         discount: productDetailsById?.data.discount,
         stock: productDetailsById?.data.stock,
         category: productDetailsById?.data.category,
-        color: JSON.parse(productDetailsById?.data?.color),
+        color: productDetailsById?.data?.color,
         size: JSON.parse(productDetailsById?.data.size),
         image: productDetailsById?.data.image,
         description: productDetailsById?.data.description,

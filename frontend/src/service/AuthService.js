@@ -18,7 +18,6 @@ export const postApiCalling = (url, data) => {
 };
 
 export const postApiCallingWithImageUpload = (url, data) => {
-  console.log(data)
   const url_post = process.env.REACT_APP_BASE_URL + url;
   let cookies = new Cookies();
   let token = cookies.get("token");

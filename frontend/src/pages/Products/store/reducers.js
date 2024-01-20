@@ -25,8 +25,8 @@ const defaultState = {
   getProductDataByIdFail: false
 };
 
-const productreducers = (state = defaultState, actions) => {
-  switch (actions.type) {
+const productreducers = (state = defaultState, action) => {
+  switch (action.type) {
     case Actions.RESET_STATE: {
       return { ...defaultState };
     }
@@ -43,7 +43,7 @@ const productreducers = (state = defaultState, actions) => {
             ...state,
         postProductDetailsInProgress: false,
         postProductDetailsSuccess: true,
-        postProductDetails: actions.details,
+        postProductDetails: action.details,
         postProductDetailsFail: false,
         }
     }
@@ -70,7 +70,7 @@ const productreducers = (state = defaultState, actions) => {
         ...state,
         getAllProductsDetailsInProgress: false,
         getAllProductsDetailsSuccess: true,
-        getAllProductsDetails: actions.details,
+        getAllProductsDetails: action.details,
         getAllProductsDetailsFail: false
       }
     }
@@ -97,7 +97,7 @@ const productreducers = (state = defaultState, actions) => {
         ...state,
         getProductDetailsByIdInProgress:false,
         getProductsDetailsByIdSuccess: true,
-        getProductByIdDetails: actions.details,
+        getProductByIdDetails: action.details,
         getProductsDetailsByIdFail: false,
       }
     case Actions.GET_PRODUCT_BY_ID_DATA_FAIL :
@@ -117,7 +117,7 @@ const productreducers = (state = defaultState, actions) => {
     case Actions.PRODUCT_DETAILS_BY_ID_SUCCESS :
       return {
         ...state,
-        getProductDataById: actions.details,
+        getProductDataById: action.details,
         getProductDataByIdInProgress: false,
         getProductDataByIdSuccess: true,
         getProductDataByIdFail: false

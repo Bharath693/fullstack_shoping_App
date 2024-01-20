@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { removeUserToken } from "../auth/LoginPage/store/dispatcher";
 import { connect } from 'react-redux'
 import "../Header/Header.scss";
+import Search from '../HomePageProducts/Search/Search';
 
 const Header = ({logOutUser, logOutSuccess},props) => {
   
@@ -28,13 +29,17 @@ const Header = ({logOutUser, logOutSuccess},props) => {
 
   
   return (
+    <>
     <div className='bg-orange-400 py-3 navbar'>
       <div className='navbar--header'>
         <div className='HomeImageMain' onClick={handleSidebarToggle}>
           {/* <span className='navbar--header--menu'></span> */}
           <Link to="/"><img src={HomeLogo} alt="Menu" className='navbar--header--menu'/></Link>
         </div>
-        <div className='flex mr-2 justify-end w-50'>
+        {/* <div className='navbar-search'>
+          <Search />
+        </div> */}
+        <div className='flex mr-2 justify-end w-[36%]'>
           <div className='navbarRight'>
             <BsSearch className='navbarSearchMain'/>
             <div className='navbarCartMain'>
@@ -50,6 +55,10 @@ const Header = ({logOutUser, logOutSuccess},props) => {
         </div>
       </div>
     </div>
+     {/* <div className='navvar-search'>
+       <Search />
+     </div> */}
+   </>
   )
 }
 

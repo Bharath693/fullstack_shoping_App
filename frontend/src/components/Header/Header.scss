@@ -1,57 +1,63 @@
 @import "../../styles/_colors.scss";
 @import "../../styles/_media.scss";
 
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  .navbar--header {
+  .navbar {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 8px;
-
-    .HomeImageMain {
-      width: 50%;
-      .navbar--header--menu {
-        width: 10%;
-        cursor: pointer;
-      }
-    }
-
-    .navbarRight {
+    // z-index: 999;
+    .navbar--header {
+      width: 100%;
       display: flex;
-      align-items: center;
-      margin-right: 20px;
-
-      .navbarSearchMain {
-        cursor: pointer;
+      justify-content: space-between;
+      padding-left: 8px;
+  
+      .HomeImageMain {
+        width: 38%;
+ 
+        .navbar--header--menu {
+          width: 69px;
+          cursor: pointer;
+        }
       }
-      .navbarCartMain {
-        display: flex;
-        margin-left: 20px;
-        position: relative;
-        cursor: pointer;
 
-        .navbarCartCount {
-          position: absolute;
-          top: -7px;
-          left: 7px;
-          background-color: cornflowerblue;
-          border-radius: 50%;
-          font-size: 10px;
-          font-weight: 600;
-          color: white;
-          width: 18px;
-          height: 18px;
+      .navbar-search {
+        width: 35%;
+      }
+  
+      .navbarRight {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+  
+        .navbarSearchMain {
+          cursor: pointer;
+        }
+        .navbarCartMain {
           display: flex;
-          align-items: center;
-          justify-content: center;
+          margin-left: 20px;
+          position: relative;
+          cursor: pointer;
+  
+          .navbarCartCount {
+            position: absolute;
+            top: -7px;
+            left: 7px;
+            background-color: cornflowerblue;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
     }
   }
-}
+
+
 
 @include breakpoint(desktop) {
   .navbar--header--menu {

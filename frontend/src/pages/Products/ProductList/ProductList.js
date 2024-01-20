@@ -93,7 +93,7 @@ const ProductList = ({
     const filtered = product.color.filter((clr) => clr.color !== color.hex);
     setProduct({
       ...product,
-      color: [...filtered, { color: color.hex, id: uuidv4() }],
+      color: [...filtered, { color: color.hex}],
     });
   };
 
@@ -151,7 +151,7 @@ const ProductList = ({
      formData.append('discount', product.discount)
      formData.append('stock', product.stock)
      formData.append('category', product.category)
-    //  formData.append('color',JSON.stringify(product.color))
+    //  formData.append('color',product.color)
      formData.append('size', JSON.stringify(product.size))
      formData.append('image',product.image)
      formData.append('description',product.description);
@@ -167,7 +167,8 @@ const ProductList = ({
     //   console.log(key, value,"165");
     // }
 
-     createProduct(formData)
+     createProduct(formData);
+    // console.log("Product",product)
  }
 
   return (

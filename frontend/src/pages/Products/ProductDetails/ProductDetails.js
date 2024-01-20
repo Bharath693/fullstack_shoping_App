@@ -76,7 +76,6 @@ const ProductDetails = ({
     }
   }
 
-  console.log(getProductName,"loading");
 
   return (
     <div>
@@ -89,7 +88,7 @@ const ProductDetails = ({
             <Breadcrumb breadCrumbData={breadCrumbData} />
           </div>
           <div className="flex flex-wrap">
-            <div className="w-full sm:w-6/12 p-5">
+            <div className="w-full lg:w-6/12 p-5">
               <div className="flex flex-wrap -mx-1">
                 <div className="w-full p-1">
                   <img
@@ -100,7 +99,7 @@ const ProductDetails = ({
                 </div>
               </div>
             </div>
-            <div className="w-full sm:w-6/12 p-5">
+            <div className="w-full lg:w-6/12 p-5">
               <h1 className="text-2xl font-bold text-gray-900 capitalize">
                 {getProductName?.data?.ProductDetails?.title}
               </h1>
