@@ -3,36 +3,47 @@ import Header from "../../../components/Header/Header";
 import Breadcrumb from "../../../reuse/Breadcrumb";
 import { useLocation, useParams } from "react-router-dom";
 import h2p from "html2plaintext";
+import toast, { Toaster } from 'react-hot-toast';
 
 //react-icons
 import { FaAngleRight } from "react-icons/fa";
+import { BsCheck } from "react-icons/bs";
 
 //dispatchers
-import { getProductDetailsById } from "../store/dispatchers";
+import { getProductDetailsById, addCartItem } from "../store/dispatchers";
 import { connect } from "react-redux";
 import ProductDetailsSkeleton from "../ProductDetailsSkeleton/ProductDetailsSkeleton";
 import ProductQuantity from "../ProductQuantity/ProductQuantity";
 
 //css
 import "./ProductDetails.scss";
+import { discount } from "../../../util/discount";
 
 const ProductDetails = ({
   productDetailsById,
   getProductName,
+  addCartItemToCart,
   getProductsLoading,
 }) => {
   const location = useLocation();
   const category = location?.state;
 
   let { id } = useParams();
-  
-  const [quantity, setQuantity] = useState(1)
 
-  const percentage =
-    getProductName?.data !== null &&
-    Number(getProductName?.data.ProductDetails?.discount) / 100;
-  let price = Number(getProductName?.data.ProductDetails?.price);
-  let discountPrice = price - price * percentage;
+  const [quantity, setQuantity] = useState(1);
+
+  //using this state to set the default Size
+  let defaultSize = getProductName?.data
+    ? JSON.parse(getProductName?.data.ProductDetails.size[0])
+    : "";
+  const [sizeState, setSizeState] = useState(defaultSize[0]);
+  const [colorState, setColorState] = useState(
+    getProductName?.data
+      ? getProductName?.data?.ProductDetails.color[0].color
+      : ""
+  );
+
+  let discountPrice = discount(getProductName?.data?.ProductDetails)
 
   //in order to display the sizes declearing this variable;
 
@@ -66,27 +77,53 @@ const ProductDetails = ({
     },
   ];
 
-  const inc = () =>{
-    setQuantity(quantity + 1)
-  }
+  const inc = () => {
+    setQuantity(quantity + 1);
+  };
 
-  const dec = () =>{
-    if(quantity > 1) {
-      setQuantity(quantity - 1)
+  const dec = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
     }
-  }
+  };
 
+  const handleAddToCart = () => {
+    const {
+      color,
+      size,
+      ["createdAt"]: createdAt,
+      ["updatedAt"]: updatedAt,
+      ...newProduct
+    } = getProductName.data.ProductDetails;
+    newProduct["size"] = sizeState;
+    newProduct["color"] = colorState;
+    newProduct["quantity"] = quantity
+    let cart = localStorage.getItem("cart");
+    let cartItem = cart ? JSON.parse(cart) : [];
+    let checkItem = cartItem.find((item) => item.id === newProduct.id);
+   
+    if(!checkItem) {
+       cartItem.push(newProduct);
+       //Here for the cart Item i am using only dispatcher and dispatching data directly from dispather to reducer without saga
+       addCartItemToCart(cartItem)
+       localStorage.setItem("cart",JSON.stringify(cartItem))
+    }else {
+       toast.error(`${newProduct.title} is already in cart`);
+       return
+    } 
+  };
 
   return (
     <div>
       <Header />
-      {getProductName === null  ? (
+      {getProductName === null ? (
         <ProductDetailsSkeleton />
       ) : (
         <>
           <div>
             <Breadcrumb breadCrumbData={breadCrumbData} />
           </div>
+          <Toaster />
           <div className="flex flex-wrap">
             <div className="w-full lg:w-6/12 p-5">
               <div className="flex flex-wrap -mx-1">
@@ -120,13 +157,20 @@ const ProductDetails = ({
                     <div className="flex flex-wrap">
                       {JSON.parse(
                         getProductName?.data?.ProductDetails.size
-                      ).map((item) => (
-                        <div className="p-1 m-1 border border-gray-400 rounded cursor-pointer -ml-1">
-                          <span className="text-sm font-semibold uppercase text-gray-400">
-                            {item}
-                          </span>
-                        </div>
-                      ))}
+                      ).map((item) => {
+                        return (
+                          <div
+                            className={`p-1 m-1 border border-gray-400 rounded cursor-pointer -ml-1 ${
+                              sizeState === item && "bg-indigo-600"
+                            }`}
+                            onClick={() => setSizeState(item)}
+                          >
+                            <span className="text-sm font-semibold uppercase text-gray-400">
+                              {item}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </>
                 )}
@@ -137,25 +181,35 @@ const ProductDetails = ({
                   </h3>
                   <div className="flex flex-wrap">
                     {getProductName?.data?.ProductDetails.color.map((item) => (
-                      <div className="p-1 m-1 border border-gray-400 rounded cursor-pointer -ml-1">
+                      <div
+                        className="p-1 m-1 border border-gray-400 rounded cursor-pointer -ml-1"
+                        onClick={() => setColorState(item.color)}
+                      >
                         <span
-                          className="min-w-[40px] min-h-[40px] rounded block"
+                          className="min-w-[40px] min-h-[40px] rounded flex items-center justify-center"
                           style={{ backgroundColor: item.color }}
-                        ></span>
+                        >
+                          {colorState === item.color && (
+                            <BsCheck className="text-white" />
+                          )}
+                        </span>
                       </div>
                     ))}
                   </div>
                 </>
               )}
               <div className="flex items-center">
-                 <div className="w-full sm:w-6/12 p-3">
-                     <ProductQuantity quantity={quantity} inc={inc} dec={dec}/>
-                 </div>
-                 <div className="w-full sm:w-6/12 p-3">
-                    <button className="btn custom-bg-indigo text-white">
-                        Add To Cart
-                    </button>
-                 </div>
+                <div className="w-full sm:w-6/12 p-3">
+                  <ProductQuantity quantity={quantity} inc={inc} dec={dec} />
+                </div>
+                <div className="w-full sm:w-6/12 p-3">
+                  <button
+                    className="btn custom-bg-indigo text-white AddToCart"
+                    onClick={handleAddToCart}
+                  >
+                    Add To Cart
+                  </button>
+                </div>
               </div>
               <h3 className="text-lg font-medium capitalize text-gray-600">
                 description
@@ -175,6 +229,7 @@ const ProductDetails = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     productDetailsById: (id) => dispatch(getProductDetailsById(id)),
+    addCartItemToCart: (data) =>dispatch(addCartItem(data))
   };
 };
 

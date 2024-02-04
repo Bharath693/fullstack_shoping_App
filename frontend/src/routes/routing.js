@@ -7,7 +7,7 @@ import Home from '../components/Home/Home';
 import HomePageProducts from '../components/HomePageProducts/HomePageProducts';
 import CatProducts from "../pages/CatProducts/CatProducts"
 import ProductDetails from '../pages/Products/ProductDetails/ProductDetails';
-
+import Cart from "../pages/Cart/Cart";
 import Private from './Private';
 
 const Routing = () => {
@@ -20,6 +20,7 @@ const Routing = () => {
         <Route path='/product/:id' element={<ProductDetails />}/>
         <Route path='cat-products/:name' element={<CatProducts />}/>
         <Route path='cat-products/:name/:page' element={<CatProducts />}/>
+        <Route path='/cart' element={<Cart />}/>
         <Route path='/login' element={<LoginForm />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/user' element={<Private><User /></Private>}/>

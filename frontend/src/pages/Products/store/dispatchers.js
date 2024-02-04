@@ -45,3 +45,24 @@ export const getProductDetailsById = (id) =>{
         id
     }
 }
+
+export const addCartItem = (details) =>{
+    return {
+        type: Actions.CART_ITEMS_SUCCESS,
+        details
+    }
+}
+
+export const IncCartQuantity = (id) =>{
+    return {
+       type:Actions.INC_QUANTITY,
+       id
+    }
+}
+
+export const DecCartQuantity = (id) =>{
+    return {
+        type:Actions.DEC_QUANTITY,
+        id
+    }
+}

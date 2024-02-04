@@ -1,4 +1,23 @@
+import { discount } from "../../../util/discount";
 import Actions from "./actions";
+let cartData = localStorage.getItem("cart");
+let cartArray = cartData ? JSON.parse(cartData) : [];
+
+function allItems(data) {
+  let items = 0;
+  for(let i=0; i<data.length; i++) {
+      items += data[i].quantity 
+  }
+  return items;
+}
+
+function calculateTotal(data) {
+  let total = 0;
+for(let i=0; i<data.length; i++) {
+    total += discount(data[i]) * data[i].quantity
+}
+return total;
+}
 
 const defaultState = {
   postProductDetails: null,
@@ -22,7 +41,14 @@ const defaultState = {
   getProductDataById: null,
   getProductDataByIdInProgress: false,
   getProductDataByIdSuccess: false,
-  getProductDataByIdFail: false
+  getProductDataByIdFail: false,
+
+  //cartItems
+  addCartItem: cartArray.length > 0 ? cartArray : [],
+  addCartTotalItems: cartArray.length > 0 ? allItems(cartArray) : 0,
+  addCartTotalCount: cartArray.length > 0 ? calculateTotal(cartArray) : 0,
+  addCartItemSuccess:false,
+  addCartItemFail:false
 };
 
 const productreducers = (state = defaultState, action) => {
@@ -129,6 +155,21 @@ const productreducers = (state = defaultState, action) => {
         getProductDataByIdSuccess: false,
         getProductDataByIdFail: true
         }
+    case Actions.CART_ITEMS_SUCCESS: 
+      return {
+        ...state,
+        addCartItem: action.details,
+        addCartItemSuccess: true,
+        addCartItemFail: false,
+      }
+    // case Actions.INC_QUANTITY: 
+    //  const find = state.addCartItem.find((item) => item._id === action.id);
+    //  if(find){
+    //   find.quantity += 1;
+    //   state.addCartTotalItems += 1;
+    //   state.addCartTotalCount += discount(find)
+    //  }
+    // return {...state}
     default:
    
       return { ...state };

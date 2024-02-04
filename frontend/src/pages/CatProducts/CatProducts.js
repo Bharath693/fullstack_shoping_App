@@ -27,7 +27,7 @@ const CatProducts = ({
      
   }
 
-  console.log(catProductDetails,"productDetails")
+  // console.log(catProductDetails,"productDetails")
 
   return (
     <div className="catProduct">

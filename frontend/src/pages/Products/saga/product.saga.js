@@ -88,6 +88,7 @@ function* watchGetProductDetailsById(data) {
   }
 }
 
+
 const productSaga = [
   takeLatest(Actions.POST_PRODUCT_DATA, watchPostProductDetails),
   takeLatest(Actions.GET_All_PRODUCTS_DATA, watchGetAllProductsDetails),
