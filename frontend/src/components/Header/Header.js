@@ -70,7 +70,7 @@ const Header = ({ logOutUser, logOutSuccess,cartTotalItems }, props) => {
 const mapStateToProps = ({ login, product }) => {
   return {
     logOutSuccess: login.logOutUserSuccess,
-    cartTotalItems: product.addCartItem
+    cartTotalItems: product.removeItemFromCart
   };
 };
 

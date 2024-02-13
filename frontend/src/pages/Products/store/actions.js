@@ -38,7 +38,13 @@ const actions = {
    INC_QUANTITY:"INC_QUANTITY",
 
    //Dec_Cart_Data
-   DEC_QUANTITY:"DEC_QUANTITY"
+   DEC_QUANTITY:"DEC_QUANTITY",
+
+   //TOTAL_CART_ITEMS
+    CART_ITEMS:"CART_ITEMS",
+
+   //remove Item from cart
+   REMOVE_ITEM_FROM_CART:"REMOVE_ITEM_FROM_CART"
 }
 
 export default actions

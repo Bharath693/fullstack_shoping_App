@@ -66,3 +66,10 @@ export const DecCartQuantity = (id) =>{
         id
     }
 }
+
+export const removeItemFromCart = (data) =>{
+    return {
+        type:Actions.REMOVE_ITEM_FROM_CART,
+        data
+    }
+}

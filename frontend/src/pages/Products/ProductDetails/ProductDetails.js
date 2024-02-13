@@ -10,7 +10,7 @@ import { FaAngleRight } from "react-icons/fa";
 import { BsCheck } from "react-icons/bs";
 
 //dispatchers
-import { getProductDetailsById, addCartItem } from "../store/dispatchers";
+import { getProductDetailsById, removeItemFromCart, addCartItem } from "../store/dispatchers";
 import { connect } from "react-redux";
 import ProductDetailsSkeleton from "../ProductDetailsSkeleton/ProductDetailsSkeleton";
 import ProductQuantity from "../ProductQuantity/ProductQuantity";
@@ -23,6 +23,7 @@ const ProductDetails = ({
   productDetailsById,
   getProductName,
   addCartItemToCart,
+  removeItemFromCart,
   getProductsLoading,
 }) => {
   const location = useLocation();
@@ -30,6 +31,10 @@ const ProductDetails = ({
 
   let { id } = useParams();
 
+  //to get the qunatity from localStorage and update the cart
+  let localStorageData = localStorage.getItem("cart");
+  let itemQuantity = JSON.parse(localStorageData);
+  
   const [quantity, setQuantity] = useState(1);
 
   //using this state to set the default Size
@@ -77,6 +82,15 @@ const ProductDetails = ({
     },
   ];
 
+  //using this useEffect to set the same quanity even after refresh
+  // useEffect(() =>{
+  //    itemQuantity.forEach(element => {
+  //        if(element._id === getProductName?.data?.ProductDetails?._id) {
+  //         setQuantity(element.quantity)
+  //        }
+  //    });
+  // },[getProductName, itemQuantity])
+
   const inc = () => {
     setQuantity(quantity + 1);
   };
@@ -100,12 +114,12 @@ const ProductDetails = ({
     newProduct["quantity"] = quantity
     let cart = localStorage.getItem("cart");
     let cartItem = cart ? JSON.parse(cart) : [];
-    let checkItem = cartItem.find((item) => item.id === newProduct.id);
-   
+    let checkItem = cartItem.find((item) => item._id === newProduct._id);
     if(!checkItem) {
        cartItem.push(newProduct);
        //Here for the cart Item i am using only dispatcher and dispatching data directly from dispather to reducer without saga
-       addCartItemToCart(cartItem)
+       removeItemFromCart(cartItem);
+      //  addCartItemToCart(cartItem)
        localStorage.setItem("cart",JSON.stringify(cartItem))
     }else {
        toast.error(`${newProduct.title} is already in cart`);
@@ -229,6 +243,7 @@ const ProductDetails = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     productDetailsById: (id) => dispatch(getProductDetailsById(id)),
+    removeItemFromCart:(data) => dispatch(removeItemFromCart(data)),
     addCartItemToCart: (data) =>dispatch(addCartItem(data))
   };
 };

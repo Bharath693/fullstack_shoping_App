@@ -48,7 +48,13 @@ const defaultState = {
   addCartTotalItems: cartArray.length > 0 ? allItems(cartArray) : 0,
   addCartTotalCount: cartArray.length > 0 ? calculateTotal(cartArray) : 0,
   addCartItemSuccess:false,
-  addCartItemFail:false
+  addCartItemFail:false,
+
+  //totalcartItem
+  // cartTotalItems:[],
+
+
+  removeItemFromCart:[]
 };
 
 const productreducers = (state = defaultState, action) => {
@@ -170,6 +176,11 @@ const productreducers = (state = defaultState, action) => {
     //   state.addCartTotalCount += discount(find)
     //  }
     // return {...state}
+    case Actions.REMOVE_ITEM_FROM_CART:
+     return {
+      ...state,
+      removeItemFromCart: action.data 
+     }
     default:
    
       return { ...state };
