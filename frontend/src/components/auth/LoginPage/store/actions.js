@@ -1,6 +1,10 @@
 const Actions = {
     RESET_STATE: "RESET_STATE",
 
+    //user details
+    USER_DETAILS:"USER_DETAILS",
+
+    //Token details
     GET_TOKEN: "GET_TOKEN",
     GET_TOKEN_SUCCESS: "GET_TOKEN_SUCCESS",
     GET_TOKEN_FAIL: "GET_TOKEN_FAIL",

@@ -27,8 +27,9 @@ const initialState = {
     
     logOutUserProgress:false,
     logOutUserSuccess: false,
-    logOutUserFail:false
-
+    logOutUserFail:false,
+    
+    userLoginDetails:null
 }
 
 const loginReducer = (state = initialState, action) =>{
@@ -52,6 +53,11 @@ const loginReducer = (state = initialState, action) =>{
                 loginDataProgress: false,
                 loginDataSuccess: false,
                 loginDataFail: true
+            }
+        case Actions.USER_DETAILS:
+            return{
+                ...state,
+                userLoginDetails: action.data
             }
         case Actions.LOGOUT_USER:
             return {

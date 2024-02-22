@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# need to check with the data persistance on refresh of the browser espically in cart data is not getting
+# persisted even after using localStorage,need to work on this

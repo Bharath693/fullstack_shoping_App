@@ -6,13 +6,13 @@ import { getRegisteredUserToken } from "../../../ReduxStore/dispatchers/getRegis
 import { motion } from 'framer-motion'
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
-import { getToken } from "./store/dispatcher";
+import { getToken, getUserDetails } from "./store/dispatcher";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import "./LoginForm.scss";
 import Header from "../../Header/Header";
 
-const LoginForm = ({ loginData, token }) => {
+const LoginForm = ({ loginData, token, getUserDetails }) => {
   const dispatcher = useDispatch();
   const navigate = useNavigate();
  
@@ -39,6 +39,7 @@ const LoginForm = ({ loginData, token }) => {
     //     navigate("/home/dashboard");
     //   }
   };
+
   if (token) {
     localStorage.setItem("token-data", token);
     // document.cookie = JSON.stringify(`token=${token}`)
@@ -47,7 +48,14 @@ const LoginForm = ({ loginData, token }) => {
     // document.cookie = "token="+token
     navigate("/user");
   }
-  // console.log(localStorage.getItem("token-data"))
+ 
+  useEffect(() =>{
+    if(token) {
+      getUserDetails(userDetails)
+    }else{
+      getUserDetails({email:"", password:""})
+    }
+  },[getUserDetails, token, userDetails])
 
   return (
     <motion.div
@@ -109,6 +117,7 @@ const LoginForm = ({ loginData, token }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginData: (userDetails) => dispatch(getToken(userDetails)),
+    getUserDetails: (userDetails) =>dispatch(getUserDetails(userDetails))
   };
 };
 

@@ -24,7 +24,7 @@ module.exports.register = async (req, res) => {
            const token = createToken(newUser);
            res.status(200).json({msg:"Account has been created succesfully!",token})
             }else{
-                return res.status(401).json({errors:"email already exist"})
+                return res.status(400).json({errors:"email already exist"})
             }
         } catch (error) {
             // console.log(error.message)
@@ -58,10 +58,10 @@ module.exports.login = async (req,res) =>{
                     res.status(200).json({token,admin:false})
                  }
              }else{
-                res.status(401).json({msg:"invalid password"})
+                res.status(400).json({msg:"invalid password"})
              }
             }else{
-                return res.status(401).json({msg:"email is not found"})
+                return res.status(400).json({msg:"email is not found"})
             }
         } catch (error) {
             res.status(500).json({msg:"internal server error"})

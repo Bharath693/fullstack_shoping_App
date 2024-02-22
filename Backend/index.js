@@ -7,6 +7,7 @@ const userRoutes = require('./routers/Users/userRouters');
 const categoryRoutes = require('./routers/Category/CategoryRoutes');
 const productRoutes = require('./routers/Product/ProductRoutes')
 const homePageRoutes = require('./routers/HomeProducts/HomeProductsRoutes')
+const paymentRoutes = require("./routers/Payment/Payment");
 const cors = require('cors')
 
 
@@ -15,6 +16,16 @@ connect();
 
 //add middelware
 app.use(bodyParser.urlencoded({extended: true })); //if false then parse only strings
+
+app.post(
+    "/api/webhook",
+    express.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf.toString();
+      },
+    })
+  );
+  
 app.use(bodyParser.json());
 
 app.get("/",(req,res)=>{
@@ -35,6 +46,9 @@ app.use("/api",productRoutes);
 
 //HomePage routes
 app.use("/api",homePageRoutes);
+
+//payment routes
+app.use("/api",paymentRoutes)
 
 
 const port = env.PORT || 5000;

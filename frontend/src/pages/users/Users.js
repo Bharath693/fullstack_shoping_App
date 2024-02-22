@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { BsPersonCircle } from 'react-icons/bs'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
@@ -7,6 +7,8 @@ import "./User.scss";
 import { connect } from 'react-redux';
 
 const Users = () => {
+  const [params] = useSearchParams()
+  console.log(params.get('session_id'));
   return (
     <div className='userPage'>
       <Header />
