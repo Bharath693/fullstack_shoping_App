@@ -5,6 +5,7 @@ import productSaga from './pages/Products/saga/product.saga';
 import HomePageProductSaga from './components/HomePageProducts/saga/HomePageProducts.saga';
 import CatProductsSaga from './pages/CatProducts/saga/CatProducts.saga';
 import paymentSaga from './pages/Cart/saga/payment.saga';
+import verifyPaymentSaga from './pages/users/saga/user.saga';
 
 export default function* rootsaga(){   
    yield all([
@@ -13,6 +14,7 @@ export default function* rootsaga(){
     ...loginSaga,
     ...HomePageProductSaga,
     ...CatProductsSaga,
-    ...paymentSaga
+    ...paymentSaga,
+    ...verifyPaymentSaga
    ])
 }

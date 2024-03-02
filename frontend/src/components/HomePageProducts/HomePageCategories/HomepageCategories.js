@@ -34,6 +34,8 @@ const HomepageCategories = ({
     }
   }, [getAllCategoriesData]);
 
+  // console.log("homePage_Categories",allCategoriesData)
+
   return (
     <>
       {allCategoriesData !== undefined &&

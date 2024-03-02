@@ -4,6 +4,7 @@ import productReducer from  "./pages/Products/store/reducers";
 import HomepageSliderData from "./components/HomePageProducts/store/reducer";
 import catProductReducer from "./pages/CatProducts/store/reducer";
 import paymentReducer from "./pages/Cart/store/reducer";
+import verifyPaymentReducer from "./pages/users/store/reducer"
 
 const reducers = {
     category: categoryreducers,
@@ -11,7 +12,8 @@ const reducers = {
     product: productReducer,
     HomepageSlider: HomepageSliderData,
     catProducts: catProductReducer,
-    payment: paymentReducer
+    payment: paymentReducer,
+    verifyPayment: verifyPaymentReducer
 }
 
 export default reducers;
